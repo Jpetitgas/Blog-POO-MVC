@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+        <h1>Modification de l'utilisateur : {{ user.username }}</h1>
+        <form action="{{ base_path ~ '/admin/users/'~ user.id~'/update'}}" method="post">
+            
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="hidden" value="{{ user.id }}" name="id">
+                        <input type="textarea" class="form-control" value="{{ user.username }}" name="username">
+                        <input type="textarea" class="form-control" value="{{ user.email }}" name="email">
+                        
+                        
+                    </div>
+                    <button class="btn btn-success">Envoyer</button>
+                </div>
+           
+        </form>
+
+{% endblock %}

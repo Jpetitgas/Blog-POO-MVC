@@ -6,6 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Controller\\ArticlesController' => $baseDir . '/src/Controller/ArticlesController.php',
-    'App\\Model\\Animal' => $baseDir . '/src/Model/Animal.php',
+    'App\\Controller\\AbstractController' => $baseDir . '/app/Controller/AbstractController.php',
+    'App\\Controller\\AppController' => $baseDir . '/app/Controller/AppController.php',
+    'App\\Controller\\ArticlesController' => $baseDir . '/app/Controller/ArticlesController.php',
+    'App\\Model\\Entity\\Entity' => $baseDir . '/app/Model/Entity/Entity.php',
+    'App\\Model\\Entity\\PostEntity' => $baseDir . '/app/Model/Entity/PostEntity.php',
+    'App\\Model\\Manager' => $baseDir . '/app/Model/Manager.php',
+    'App\\Model\\PostsManager' => $baseDir . '/app/Model/PostsManager.php',
 );

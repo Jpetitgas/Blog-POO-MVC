@@ -48,7 +48,7 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
         ),
         'App\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
@@ -63,8 +63,13 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
     );
 
     public static $classMap = array (
-        'App\\Controller\\ArticlesController' => __DIR__ . '/../..' . '/src/Controller/ArticlesController.php',
-        'App\\Model\\Animal' => __DIR__ . '/../..' . '/src/Model/Animal.php',
+        'App\\Controller\\AbstractController' => __DIR__ . '/../..' . '/app/Controller/AbstractController.php',
+        'App\\Controller\\AppController' => __DIR__ . '/../..' . '/app/Controller/AppController.php',
+        'App\\Controller\\ArticlesController' => __DIR__ . '/../..' . '/app/Controller/ArticlesController.php',
+        'App\\Model\\Entity\\Entity' => __DIR__ . '/../..' . '/app/Model/Entity/Entity.php',
+        'App\\Model\\Entity\\PostEntity' => __DIR__ . '/../..' . '/app/Model/Entity/PostEntity.php',
+        'App\\Model\\Manager' => __DIR__ . '/../..' . '/app/Model/Manager.php',
+        'App\\Model\\PostsManager' => __DIR__ . '/../..' . '/app/Model/PostsManager.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <a href="{{ base_path }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> retour à la page d'accueil</a>
+    <br>
+    
+    <h1>Liste des article</h1>
+
+    {% for post in posts %}
+        <div class="alert alert-secondary">{{ post.title }}</div>
+        <div class="alert alert-secondary">{{ post.chapo }}</div>
+        <a class="btn btn-primary" href="{{ base_path ~ 'articles/'~post.id }}">Lire la suite</a>
+    {% endfor %}
+
+{% endblock %}
