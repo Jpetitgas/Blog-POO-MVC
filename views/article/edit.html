@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+        <h1>Modification de l'article : {{ post.title }}.</h1>
+        <form action="{{ base_path ~ '/admin/articles/'~ post.id~'/update'}}" method="post">
+            
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="hidden" value="{{ post.id }}" name="id">
+                        <input type="textarea" class="form-control" value="{{ post.title }}" name="title">
+                        <input type="textarea" class="form-control" value="{{ post.chapo }}" name="chapo">
+                        <input type="textarea" class="form-control" value="{{ post.content }}" name="content">
+                        
+                    </div>
+                    <button class="btn btn-success">Envoyer</button>
+                </div>
+           
+        </form>
+
+{% endblock %}
