@@ -55,8 +55,8 @@ class UsersController extends Controller
     public static function validation() 
     {
             $_POST['password']=sha1($_POST['password']);
-            $user = new UserEntity;
-            $user->hydrate($_POST);
+            $user = new UserEntity($_POST);
+            //$user->hydrate($_POST);
             $users =new UsersManager;
             $users ->create($user);
             $redir='location: /admin';

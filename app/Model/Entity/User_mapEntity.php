@@ -10,7 +10,7 @@ class User_MapEntity extends Entity{
   private $id_group;
   
   
-  public function __construct(array $donnees = []){
+  public function __construct(array $donnees){
     if (!empty($donnees))
   {
     $this->hydrate($donnees);

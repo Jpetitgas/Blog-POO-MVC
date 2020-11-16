@@ -12,7 +12,7 @@ class PostEntity extends Entity{
     private   $content;
     private   $date_maj;
  
-    public function __construct(array $donnees = []){
+    public function __construct(array $donnees){
       if (!empty($donnees))
     {
       $this->hydrate($donnees);

@@ -11,7 +11,7 @@ class UserEntity extends Entity{
   private $password;
   private $valided;
   
-  public function __construct(array $donnees = []){
+  public function __construct(array $donnees){
     if (!empty($donnees))
   {
     $this->hydrate($donnees);
@@ -23,7 +23,8 @@ class UserEntity extends Entity{
   {
     if (!is_string($username) || empty($username))
     {
-      
+      header('location: /403');
+      exit();
     }
     $this->username = $username;
   }

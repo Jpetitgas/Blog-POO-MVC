@@ -9,8 +9,8 @@ use App\Model\Entity\PostEntity;
 class PostsController extends Controller{
 
     public static function record() {
-        $post = new PostEntity;
-        $post->hydrate($_POST);
+        $post = new PostEntity($_POST);
+        //$post->hydrate($_POST);
         $posts =new PostsManager;
         $posts ->create($post);
         $redir='location: /admin';
