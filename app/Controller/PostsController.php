@@ -9,8 +9,8 @@ use App\Model\Entity\PostEntity;
 class PostsController extends Controller{
 
     public static function record() {
-        $post = new PostEntity($_POST);
-        //$post->hydrate($_POST);
+        $controlled_array=self::Control_array($_POST);
+        $post = new PostEntity($controlled_array);
         $posts =new PostsManager;
         $posts ->create($post);
         $redir='location: /admin';
@@ -19,25 +19,32 @@ class PostsController extends Controller{
 
     public static function all(){
         $posts =new PostsManager;
+       
         echo self::getTwig()->render('article/all.html',[
-            'posts'=>$posts ->readAll()
+            'posts'=>$posts ->readAll(),
             ]);
     }
     public static function one(int $id){
         $post =new PostsManager;
         $comments= new CommentsManager;
-        
+        if (isset($_SESSION['auth'])){
+            $connect=true;
+        } else {
+            $connect=false;
+        }
         echo self::getTwig()->render('article/one.html', [
             'post' => $post ->readOne($id),
-            'comments'=> $comments->findAllValidedByPost($id)
+            'comments'=> $comments->findAllValidedByPost($id),
+            'auth'=>$connect
         ]);
         
     }
    
     public static function update() {
         $posts =new PostsManager;
-        $post= $posts->readOne($_POST['id']);
-        $post->hydrate($_POST);
+        $controlled_array=self::Control_array($_POST);
+        $post= $posts->readOne($controlled_array['id']);
+        $post->hydrate($controlled_array);
         $posts ->update($post);
         $redir='location: /admin';
         return header($redir);

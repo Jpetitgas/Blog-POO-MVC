@@ -28,7 +28,7 @@ $router->before('GET|POST', '/admin', function() {
         header('location: /login');
         exit();
     } 
-    if ($_SESSION['group'] !== '2'){
+    if ($_SESSION['role'] === 1){
             header('location: /403');
             exit();
         }

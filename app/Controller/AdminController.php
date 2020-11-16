@@ -17,8 +17,8 @@ class AdminController extends Controller {
         echo self::getTwig()->render('admin/admin.html',[
             'posts'=>$posts ->readAll(),
             'comments'=> $comments->findAll(0),
-            'allusers'=>$users ->findAll(1),
-            'users'=> $users->findAll(0),
+            'allusers'=>$users ->findAll(2),
+            'users'=> $users->findAll(1),
             ]);
     }
     public static function create() {

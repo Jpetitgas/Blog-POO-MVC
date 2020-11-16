@@ -10,6 +10,7 @@ class UserEntity extends Entity{
   private $email;
   private $password;
   private $valided;
+  private $role;
   
   public function __construct(array $donnees){
     if (!empty($donnees))
@@ -21,20 +22,13 @@ class UserEntity extends Entity{
   // SETTERS //
   public function setUsername($username)
   {
-    if (!is_string($username) || empty($username))
-    {
-      header('location: /403');
-      exit();
-    }
+   
     $this->username = $username;
   }
 
   public function setEmail($email)
   {
-    if (!is_string($email) || empty($email))
-    {
-      
-    }
+    
     $this->email = $email;
   }
 
@@ -50,6 +44,10 @@ class UserEntity extends Entity{
   public function setValided($valided)
   {
     $this->valided =(int) $valided;
+  }
+  public function setRole($role)
+  {
+    $this->role =(int) $role;
   }
 
   // GETTERS //
@@ -73,6 +71,11 @@ class UserEntity extends Entity{
   {
     return $this->valided;
   }
+  public function role()
+  {
+    return $this->role;
+  }
+
 
  }
 

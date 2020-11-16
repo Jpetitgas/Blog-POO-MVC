@@ -31,11 +31,5 @@ abstract class Entity {
     }
   }
   
-  private function valid_data($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
   
 }

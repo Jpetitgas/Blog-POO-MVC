@@ -34,9 +34,7 @@ class PostsManager extends Manager
         $query = "SELECT * FROM post order by id";
         $response =self::getPdo()->prepare($query);
         $response->execute();
-
         $allposts = $response->fetchAll();
-        
         $objects=$this->arrayToObject($allposts, 'post');
         return $objects;
     }
@@ -50,6 +48,10 @@ class PostsManager extends Manager
             $response = self::getPdo()->prepare($query);
             $response->execute(array($id));
             $data = $response->fetch();
+            if (!$data){
+                header('location: /404');
+                die();
+            }
             $post =new PostEntity($data);
             return $post; 
         }
@@ -79,6 +81,7 @@ class PostsManager extends Manager
             $query = "DELETE FROM post WHERE id= ?";
             $response = self::getPdo()->prepare($query);
             $id=array($post->id());
+            
             $response->execute($id);
         }
 

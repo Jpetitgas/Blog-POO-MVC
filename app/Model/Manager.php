@@ -25,7 +25,6 @@ abstract class Manager {
        
         foreach($array as $one) {
             $single = new $entity($one);
-            //$single->hydrate($one);
             $dataAsObjects[] =$single;
         }
         return $dataAsObjects;
