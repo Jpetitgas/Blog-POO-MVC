@@ -12,14 +12,14 @@ class UsersManager extends Manager
     */
     public function create(UserEntity $user) {
 
-        $query = 'INSERT INTO user(username, email, password, valided) VALUES (:username, :email, :password, :valided)';
+        $query = 'INSERT INTO user(username, email, password, valided) VALUES (:username, :email, :password)';
         $response = self::getPdo()->prepare($query);
             
         $response->execute([
             'username' => $user->username(),
             'email' => $user->email(),
             'password' => $user->password(),
-            'valided'=> '0',
+            
         ]);
 
         return true;
@@ -29,7 +29,7 @@ class UsersManager extends Manager
     * Retourne la liste des users
     */ 
     public function findAll(int $valided) {
-        if ($valided==1 | $valided==0){
+        if ($valided==2 | $valided==1){
             $query = "SELECT * FROM user where valided=$valided";
             $response = self::getPdo()->prepare($query);
             $response->execute();
@@ -89,7 +89,7 @@ class UsersManager extends Manager
     */
     public function valided(userEntity $user)
     {
-        $query=("UPDATE user SET valided= '1' WHERE id = :id ");
+        $query=("UPDATE user SET valided= '2' WHERE id = :id ");
         $response=self::getPdo()->prepare($query);
         $response->execute([
             'id'=>$user->id(),
@@ -101,12 +101,13 @@ class UsersManager extends Manager
     */
     public function update(userEntity $user)
         {
-            $query=("UPDATE user SET username= :username, email= :email WHERE id = :id ");
+            $query=("UPDATE user SET username= :username, role= :role, email= :email WHERE id = :id ");
             $response=self::getPdo()->prepare($query);
             $response->execute([
                 'username' => $user->username(),
                 'email' => $user->email(),
                 'id'=>$user->id(),
+                'role'=>$user->role(),
                 
             ]);   
         }

@@ -21,11 +21,7 @@ abstract class Entity {
   {
     foreach ($donnees as $attribut => $valeur)
     {
-      $valeur=$this->valid_data($valeur);
-      /*if ($attribut=='username'){
-        if (!is_string($valeur) || empty($valeur)){
-          var_dump($donnees);
-      }}*/
+      
       $methode = 'set'.ucfirst($attribut);
  
       if (is_callable([$this, $methode]))
@@ -35,11 +31,5 @@ abstract class Entity {
     }
   }
   
-  private function valid_data($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
   
 }

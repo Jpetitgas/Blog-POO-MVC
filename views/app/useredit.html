@@ -10,12 +10,19 @@
                         <input type="hidden" value="{{ user.id }}" name="id">
                         <input type="textarea" class="form-control" value="{{ user.username }}" name="username">
                         <input type="textarea" class="form-control" value="{{ user.email }}" name="email">
-                        
-                        
+                        <select name="role" >
+                            {% if user.role == 1 %}
+                                <option value=1 selected>Enregistré</option>
+                                <option value=2>Administrateur</option>
+                            {% else %}
+                                <option value=1 >Enregistré</option>
+                                <option value=2 selected>Administrateur</option>
+                            {% endif %}
+                        </select>
                     </div>
                     <button class="btn btn-success">Envoyer</button>
                 </div>
-           
         </form>
-
+        <a href="{{ base_path ~ '/admin'}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> retour</a>
+        
 {% endblock %}

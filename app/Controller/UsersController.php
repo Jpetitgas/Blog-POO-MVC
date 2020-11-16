@@ -3,7 +3,7 @@
 namespace App\Controller;
 use App\Model\UsersManager;
 use App\Model\Entity\UserEntity;
-use App\Model\UserMapManager;
+
 
 class UsersController extends Controller 
 {
@@ -17,22 +17,26 @@ class UsersController extends Controller
     public static function checkLogin()
     {
         $users=new UsersManager();
-        $user=$users->get($_POST['username']);
-        $usermap= new UserMapManager();
+        $controlled_array=self::Control_array($_POST);
+        $user=$users->get($controlled_array['username']);
+        
+        if (empty($user)){
+            echo("l'utilisateur n'existe pas");
+            die();
+        }
+        if ($user[0]->valided()==1){
+            echo("Le compte n'est pas encore actif");
+            die();
+        }
         if($user[0]->password() === sha1($_POST['password']))
             {
                 $_SESSION['auth'] = $user[0]->id();
-                $a=['id_user'=>$user[0]->id(),'id_group'=>2];
-                $b=$usermap->get($a);
-                if (count($b)==1)
-                {
-                    $_SESSION['group'] = '2';
-                } else {
-                    $_SESSION['group'] = '1';
-                }
-            }
+                $_SESSION['role'] = $user[0]->role();
+            }  
+              
         $redir='location: /admin';
         return header($redir);
+        
     }
     
     public static function unlogged(){
@@ -42,7 +46,6 @@ class UsersController extends Controller
     
     public static function edit(int $id){
         $user =new UsersManager;
-
         echo self::getTwig()->render('app/useredit.html', [
             'user' => $user ->readOne($id),
         ]);
@@ -55,8 +58,8 @@ class UsersController extends Controller
     public static function validation() 
     {
             $_POST['password']=sha1($_POST['password']);
-            $user = new UserEntity($_POST);
-            //$user->hydrate($_POST);
+            $controlled_array=self::Control_array($_POST);
+            $user = new UserEntity($controlled_array);
             $users =new UsersManager;
             $users ->create($user);
             $redir='location: /admin';
@@ -74,7 +77,8 @@ class UsersController extends Controller
     public static function update() {
         $users =new UsersManager;
         $user= $users->readOne($_POST['id']);
-        $user->hydrate($_POST);
+        $controlled_array=self::Control_array($_POST);
+        $user->hydrate($controlled_array);
         $users ->update($user);
         $redir='location: /admin';
         return header($redir);

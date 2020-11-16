@@ -5,6 +5,7 @@
         <h1>Bienvenue sur la page de l'article dont l'ID est {{ post.title }}.</h1>
         <p>{{ post.chapo }}</p>
         <p>{{ post.content }}</p>
+        {% if auth == true %}
         <form action="{{ base_path ~ 'newcomment'}}" method="post">
             
                 <div class="form-group">
@@ -17,7 +18,7 @@
                 </div>
             
             </form>
-        
+        {%endif%}
     {% for comment in comments %}
         <p>{{ comment.comment }} </p>
     {% endfor %}

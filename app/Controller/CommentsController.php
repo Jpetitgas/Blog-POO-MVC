@@ -9,7 +9,8 @@ use App\Model\Entity\CommentEntity;
 class CommentsController extends Controller{
 
     public static function record(){
-        $comment = new CommentEntity($_POST);
+        $controlled_array=self::Control_array($_POST);
+        $comment = new CommentEntity($controlled_array);
         $comments= new CommentsManager;
         $comments ->store($comment);
         $rediction= 'location: /articles/'.$_POST['id'];
