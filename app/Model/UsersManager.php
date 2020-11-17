@@ -12,7 +12,7 @@ class UsersManager extends Manager
     */
     public function create(UserEntity $user) {
 
-        $query = 'INSERT INTO user(username, email, password, valided) VALUES (:username, :email, :password)';
+        $query = 'INSERT INTO user(username, email, password) VALUES (:username, :email, :password)';
         $response = self::getPdo()->prepare($query);
             
         $response->execute([

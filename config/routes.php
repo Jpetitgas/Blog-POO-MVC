@@ -22,6 +22,7 @@ $router->post('/admin/users/(\d+)/valided', 'UsersController@valided');
 
 $router->get('/admin/users/(\d+)/edit', 'UsersController@edit');
 $router->post('/admin/users/(\d+)/update', 'UsersController@update');
+
 //back
 $router->before('GET|POST', '/admin', function() {
     if (!isset($_SESSION['auth']) ){

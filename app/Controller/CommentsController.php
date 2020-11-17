@@ -20,7 +20,8 @@ class CommentsController extends Controller{
 
     public static function valided() {
         $comments =new CommentsManager;
-        $comment= $comments->readOne($_POST['id']);
+        $id=self::valid_data($_POST['id']);
+        $comment= $comments->readOne($id);
         $comment->hydrate($_POST);
         $comments ->update($comment);
         $rediction='location: /admin';
@@ -29,7 +30,8 @@ class CommentsController extends Controller{
 
     public static function delete() {
         $comments =new commentsManager;
-        $comment= $comments->readOne($_POST['id']);
+        $id=self::valid_data($_POST['id']);
+        $comment= $comments->readOne($id);
         $comments->delete($comment);
         $redir='location: /admin';
         return header($redir);

@@ -34,7 +34,7 @@ class UsersController extends Controller
                 $_SESSION['role'] = $user[0]->role();
             }  
               
-        $redir='location: /admin';
+        $redir='location: /';
         return header($redir);
         
     }
@@ -45,6 +45,7 @@ class UsersController extends Controller
     } 
     
     public static function edit(int $id){
+        $id=self::valid_data($id);
         $user =new UsersManager;
         echo self::getTwig()->render('app/useredit.html', [
             'user' => $user ->readOne($id),
@@ -68,7 +69,8 @@ class UsersController extends Controller
     }
     public static function valided() {
         $users =new UsersManager;
-        $user= $users->readOne($_POST['id']);
+        $id=self::valid_data($_POST['id']);
+        $user= $users->readOne($id);
         $user->hydrate($_POST);
         $users ->valided($user);
         $rediction='location: /admin';
@@ -76,7 +78,8 @@ class UsersController extends Controller
     }
     public static function update() {
         $users =new UsersManager;
-        $user= $users->readOne($_POST['id']);
+        $id=self::valid_data($_POST['id']);
+        $user= $users->readOne($id);
         $controlled_array=self::Control_array($_POST);
         $user->hydrate($controlled_array);
         $users ->update($user);
@@ -85,7 +88,8 @@ class UsersController extends Controller
     }
     public static function delete() {
         $users =new UsersManager;
-        $user= $users->readOne($_POST['id']);
+        $id=self::valid_data($_POST['id']);
+        $user= $users->readOne($id);
         $users->delete($user);
         $redir='location: /admin';
         return header($redir);

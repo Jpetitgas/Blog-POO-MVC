@@ -26,6 +26,7 @@ class PostsController extends Controller{
     }
     public static function one(int $id){
         $post =new PostsManager;
+        $id=self::valid_data($id);
         $comments= new CommentsManager;
         if (isset($_SESSION['auth'])){
             $connect=true;
@@ -51,6 +52,7 @@ class PostsController extends Controller{
     }
 
     public static function delete(int $id) {
+        $id=self::valid_data($id);
         $posts =new PostsManager;
         $comments=new CommentsManager;
         $commentsOfPost=$comments->findAllByPost($id);
