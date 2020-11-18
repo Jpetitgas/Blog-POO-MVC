@@ -7,6 +7,11 @@ $router->setNamespace('App\Controller');
 $router->get('/', 'PublicController@index');
 $router->get('/403', 'PublicController@forbidden');
 //connexion
+$router->before('GET','/login', function () {
+    $undo=$_SERVER['HTTP_REFERER'];
+    setcookie('undo',$undo);
+});
+
 $router->get('/login', 'UsersController@login');
 $router->post('/checklogin', 'UsersController@checkLogin');
 $router->get('/unlocked', 'UsersController@unlogged');
@@ -22,19 +27,20 @@ $router->post('/admin/users/(\d+)/valided', 'UsersController@valided');
 
 $router->get('/admin/users/(\d+)/edit', 'UsersController@edit');
 $router->post('/admin/users/(\d+)/update', 'UsersController@update');
-//back
-$router->before('GET|POST', '/admin', function() {
-    if (!isset($_SESSION['auth']) ){
+
+//admin
+$router->before('GET|POST', '/admin', function () {
+    if (!isset($_SESSION['auth'])) {
+          
         header('location: /login');
         exit();
-    } 
-    if ($_SESSION['role'] === 1){
-            header('location: /403');
-            exit();
-        }
-    
+    }
+    if ($_SESSION['role'] === 1) {
+        header('location: /403');
+        exit();
+    }
 });
-$router->get('/admin', 'AdminController@index' );
+$router->get('/admin', 'AdminController@index');
 
 $router->get('/admin/articles/create', 'AdminController@create');
 $router->post('/admin/articles/record', 'PostsController@record');

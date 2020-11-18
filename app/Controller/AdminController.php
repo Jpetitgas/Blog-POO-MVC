@@ -26,8 +26,8 @@ class AdminController extends Controller {
         
     }
     public static function edit(int $id){
+        $id=self::valid_data($id);
         $post =new PostsManager;
-
         echo self::getTwig()->render('article/edit.html', [
             'post' => $post ->readOne($id),
         ]);

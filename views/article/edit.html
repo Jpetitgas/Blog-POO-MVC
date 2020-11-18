@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
+{% block menu %}
+    
+    {% if connected == 1 %}
+        <a href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a>
+        {% block username %}
+            <p>bonjour, {{ name }}</p>
+        {% endblock username %}
+    {% else %}
+        <a href="{{ base_path ~ 'login' }}">Se connecter</a>
+    {% endif %}
+{% endblock menu %}
+
 {% block content %}
     
         <h1>Modification de l'article : {{ post.title }}.</h1>

@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
+{% block menu %}
+    
+    {% if global.connect == 1 %}
+        <a href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a>
+        {% block username %}
+            <p>bonjour, {{ global.username }}</p>
+        {% endblock username %}
+    {% else %}
+        <a href="{{ base_path ~ 'login' }}">Se connecter</a>
+    {% endif %}
+{% endblock menu %}
+
 {% block content %}
-<h1>Bienvenue sur la page d'accueil.</h1>
+    <h1>Bienvenue sur la page d'accueil.</h1>
 {% endblock %}

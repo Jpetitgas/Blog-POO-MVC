@@ -6,11 +6,14 @@ use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 abstract class Controller {
+    protected static $global=[];
+    
 
     public static function getTwig() {
         $loader = new FilesystemLoader(__DIR__ . '/../../views');
         $twig = new Environment($loader);
         $twig->addGlobal('base_path',  BASE_PATH);
+        
         return $twig;
     }
     
@@ -42,5 +45,16 @@ abstract class Controller {
         $data = htmlspecialchars($data);
         return $data;
       } 
-    
+    protected static function global(){
+        if (isset($_SESSION['auth'])){
+            self::$global['connect']=1;
+            self::$global['username']=$_SESSION['user'];
+            self::$global['userid']=$_SESSION['auth'];
+        } else{
+            self::$global['connect']=2;
+            self::$global['username']="";
+            self::$global['userid']="";
+         }
+        
+    }
 }

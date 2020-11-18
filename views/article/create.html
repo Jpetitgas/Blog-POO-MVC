@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
+{% block menu %}
+    
+    {% if connected == 1 %}
+        <a href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a>
+        {% block username %}
+            <p>bonjour, {{ name }}</p>
+        {% endblock username %}
+    {% else %}
+        <a href="{{ base_path ~ 'login' }}">Se connecter</a>
+    {% endif %}
+{% endblock menu %}
+
 {% block content %}
 
 <a href="{{ base_path ~ '/admin'}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> retour</a>
