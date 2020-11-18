@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
+{% block menu %}
+    
+    {% if global.connect == 1 %}
+        <a href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a>
+        {% block username %}
+            <p>bonjour, {{ global.username }}</p>
+        {% endblock username %}
+    {% else %}
+        <a href="{{ base_path ~ 'login' }}">Se connecter</a>
+    {% endif %}
+{% endblock menu %}
+
 {% block content %}
     
         <h1>Bienvenue sur la page de l'article dont l'ID est {{ post.title }}.</h1>
@@ -11,6 +23,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <input type="hidden" value="{{ post.id }}" name="id">
+                        <input type="hidden" value="{{ global.userid }}" name="id_author">
                         <input type="hidden" value="{{ post.id }}" name="id_post">
                         <input type="textarea" class="form-control" placeholder="Laisser un commentaire" name="comment">
                     </div>
@@ -18,8 +31,13 @@
                 </div>
             
             </form>
+            {% else%}
+            <p>Pour laisser un commentaire vous devez vous connecter</p>
+            <a href="{{ base_path ~ 'login' }}">Se connecter</a>
         {%endif%}
     {% for comment in comments %}
+        <p>{{ comment.author }} </p>
+        <p>{{ comment.date }} </p>
         <p>{{ comment.comment }} </p>
     {% endfor %}
 

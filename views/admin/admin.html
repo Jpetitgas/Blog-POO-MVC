@@ -24,6 +24,8 @@
 <table>
     {% for comment in comments %}
     <tr>
+        <td>{{ comment.post }}</td>
+        <td>{{ comment.author }}</td>
         <td>{{ comment.comment }}</td>
         <td>
             <form action="{{ base_path ~ 'admin/comments/' ~ comment.id ~ '/valided'}}" method="post">
