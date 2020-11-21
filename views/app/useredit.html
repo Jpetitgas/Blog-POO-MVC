@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Modification utilisateur{% endblock title %}
+{% block css %}
+<link href="/css/styles.css" rel="stylesheet" />" rel="stylesheet" />
+{% endblock css %}
+{% block menu %}
+
+{% if global.connect == 1 %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+        href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a></li>
+        {% block username %}
+        <li class="nav-item mx-lg-1 row align-items-center text-success">bonjour, {{ global.username }}</li>
+        {% endblock username %}
+{% else %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+        href="{{ base_path ~ 'login' }}">Se connecter</a></li>
+{% endif %}
+{% endblock menu %}
+{% block content %}
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Modification de l'utilisateur :
+    {{ user.username }}</h2>
+
+<div class="divider-custom">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
+
+
+    <div class="container">
+        <div class="card-body p-2">
+
+            <form action="{{ base_path ~ '/admin/users/'~ user.id~'/update'}}" method="post">
+                <div class="d-flex align-items-center flex-column">
+                    <input type="hidden" value="{{ user.id }}" name="id">
+                    <div class="p-2">
+                        <input class="form-control" type="text" value="{{ user.username }}" name="username" required>
+                    </div>
+                    <div class="p-2">
+                        <input class="form-control" type="email" value="{{ user.email }}" name="email" required>
+                    </div>
+                    <div class="p-2">
+                        <select name="role">
+                            {% if user.role == 1 %}
+                            <option value=1 selected>Enregistré</option>
+                            <option value=2>Administrateur</option>
+                            {% else %}
+                            <option value=1>Enregistré</option>
+                            <option value=2 selected>Administrateur</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="p-2">
+                        <button class="btn btn-primary">VALIDER</button>
+                    </div>
+                    <div class="p-2">
+                        <a href="{{ base_path ~ 'registration'}}">Créer un compte</a><br>
+                        <a href="{{ base_path ~ '/admin'}}">Annuler</a>
+                    </div>
+                </div>
+            </form>
+            
+            
+
+{% endblock %}
+{% block js %}
+<script src="/js/scripts.js"></script>
+{% endblock js %}

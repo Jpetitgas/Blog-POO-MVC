@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Liste des articles{% endblock title %}
+{% block menu %}
+
+{% if global.connect == 1 %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+        href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a></li>
+        {% block username %}
+        <li class="nav-item mx-lg-1 row align-items-center text-success">bonjour, {{ global.username }}</li>
+        {% endblock username %}
+{% else %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+        href="{{ base_path ~ 'login' }}">Se connecter</a></li>
+{% endif %}
+{% endblock menu %}
+
+{% block content %}
+
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Liste des articles</h2>
+
+<div class="divider-custom">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
+
+    <div class="container">
+        <div class="row justify-content-start">
+
+
+            {% for post in posts %}
+            <div class="col-md-6 col-lg-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-header">{{ post.title }}</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ post.chapo }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="{{ base_path ~ 'articles/'~post.id }}">Lire la suite</a>
+                        <small class="text-muted ">Modifié le {{ post.date_maj }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block admin %}
+{% if global.role == 2 %}
+<h4 class="text-uppercase mb-4"><a href="{{ base_path ~ 'admin' }}">Adminstration du site</a></h4>
+{% endif %}
+{% endblock admin %}

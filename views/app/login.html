@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Se connecter{% endblock title %}
+{% block css %}
+<link href="../css/styles.css" rel="stylesheet" />
+{% endblock css %}
+{% block menu %}
+
+{% if global.connect == 1 %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+        href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a></li>
+        {% block username %}
+        <li class="nav-item mx-lg-1 row align-items-center text-success">bonjour, {{ global.username }}</li>
+        {% endblock username %}
+{% else %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+        href="{{ base_path ~ 'login' }}">Se connecter</a></li>
+{% endif %}
+{% endblock menu %}
+
+{% block content %}
+
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Connection</h2>
+
+<div class="divider-custom">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
+<form action="{{ base_path ~ 'checklogin'}}" method="post">
+    <div class="d-flex align-items-center flex-column">
+        <div class="p-2">
+            <input class="form-control" type="text" placeholder="Nom de l'utilisateur" name="username" required>
+        </div>
+        <div class="p-2">
+            <input class="form-control" type="password" placeholder="Mot de passe" name="password" required>
+        </div>
+        <div class="p-2">
+            <button class="btn btn-primary">CONNEXION</button>
+        </div>
+        <div class="p-2">
+            <a href="{{ base_path ~ 'registration'}}">Créer un compte</a>
+        </div>
+    </div>
+</form>
+
+
+
+{% endblock %}
+{% block admin %}
+{% if global.role == 2 %}
+<h4 class="text-uppercase mb-4"><a href="{{ base_path ~ 'admin' }}">Adminstration du site</a></h4>
+{% endif %}
+{% endblock admin %}
