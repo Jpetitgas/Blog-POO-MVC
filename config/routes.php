@@ -52,7 +52,8 @@ $router->before('GET|POST', '/admin', function () {
         header('location: /login');
         exit();
     }
-    if ($_SESSION['role'] === 1) {
+    $b=$session::get('role');
+    if ($b === 1) {
         header('location: /403');
         exit();
     }

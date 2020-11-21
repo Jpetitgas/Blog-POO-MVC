@@ -59,8 +59,8 @@ class PostsController extends Controller
         $id = self::valid_data($id);
         $comments = new CommentsManager;
         $session = new Session;
-        $a=$session::get('auth');
-        if (isset($a)) {
+        $auth=$session::get('auth');
+        if (isset($auth)) {
             $connect = true;
         } else {
             $connect = false;

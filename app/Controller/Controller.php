@@ -43,6 +43,7 @@ abstract class Controller
                 if (isset($valeur) and !empty($valeur)) {
 
                     $valeur = self::valid_data($valeur);
+                    $attribut =self::valid_data($attribut);
                     $controlled_array[$attribut] = $valeur;
                 } else {
                     self::message('le champ : ' . $attribut . ' ne doit pas etre vide');
@@ -81,8 +82,8 @@ abstract class Controller
     protected static function global()
     {
        $session = new Session;
-        $a=$session::get('auth');
-        if (isset($a)) {
+        $auth=$session::get('auth');
+        if (isset($auth)) {
             self::$global['connect'] = 1;
             self::$global['username'] = $session::get('user');
             self::$global['userid'] = $session::get('auth');
