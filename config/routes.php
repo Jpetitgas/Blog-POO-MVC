@@ -1,5 +1,7 @@
 <?php
 
+use App\Controller\Session;
+
 $router->setNamespace('App\Controller');
 
 //front
@@ -43,7 +45,9 @@ $router->post('/admin/users/(\d+)/update', 'UsersController@update');
 
 //admin
 $router->before('GET|POST', '/admin', function () {
-    if (!isset($_SESSION['auth'])) {
+    $session = new Session;
+    $a=$session::get('auth');
+    if (!isset($a)) {
           
         header('location: /login');
         exit();

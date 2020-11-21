@@ -70,17 +70,7 @@ abstract class Controller
         return $data;
     }    
     
-    public static function put($key, $value){
-        $_SESSION[$key] = $value;
-    }
-
-    public static function get($key){
-        return (isset($_SESSION[$key]) ? $_SESSION[$key] : null);
-    }
-
-    public static function forget($key){
-        unset($_SESSION[$key]);
-    }
+    
     
     /**
      * global
@@ -90,11 +80,13 @@ abstract class Controller
      */
     protected static function global()
     {
-        if (isset($_SESSION['auth'])) {
+       $session = new Session;
+        $a=$session::get('auth');
+        if (isset($a)) {
             self::$global['connect'] = 1;
-            self::$global['username'] = self::get('user');
-            self::$global['userid'] = self::get('auth');
-            self::$global['role'] = self::get('role');
+            self::$global['username'] = $session::get('user');
+            self::$global['userid'] = $session::get('auth');
+            self::$global['role'] = $session::get('role');
         } else {
             self::$global['connect'] = 2;
             self::$global['username'] = "";

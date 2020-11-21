@@ -31,7 +31,7 @@ class UsersController extends Controller
         $users = new UsersManager();
         $controlled_array = self::Control_array();
         $user = $users->get($controlled_array['username']);
-
+        $session = new Session;
         if (empty($user)) {
             self::message("l'utilisateur n'existe pas");
             die();
@@ -41,9 +41,9 @@ class UsersController extends Controller
             die();
         }
         if ($user[0]->password() === sha1($controlled_array['password'])) {
-            self::put('auth', $user[0]->id());
-            self::put('role' ,$user[0]->role());
-            self::put('user' , $controlled_array['username']);
+            $session::put('auth', $user[0]->id());
+            $session::put('role' ,$user[0]->role());
+            $session::put('user' , $controlled_array['username']);
         } else {
             self::message("Le mot de passe n'est pas correct");
             die();

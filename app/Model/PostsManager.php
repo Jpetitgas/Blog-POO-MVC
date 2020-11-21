@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Model\Entity\PostEntity;
+use App\Controller\Session;
 
 class PostsManager extends Manager
 {    
@@ -17,12 +18,12 @@ class PostsManager extends Manager
 
         $query = 'INSERT INTO post(title, chapo, content, author,date_maj) VALUES (:title, :chapo, :content, :author, :date_maj)';
         $response = self::getPdo()->prepare($query);
-
+        $session = new Session;
         $response->execute([
             'title' => $post->title(),
             'chapo' => $post->chapo(),
             'content' => $post->content(),
-            'author' => $_SESSION['auth'],
+            'author' => $session::get('auth'),
             'date_maj' => $this->getFormattedDateTime(),
 
         ]);
@@ -102,7 +103,7 @@ class PostsManager extends Manager
      * delete
      *supprime un article
      * @param  mixed $post
-     * @return 
+     * @return ""
      */
     public function delete(PostEntity $post)
     {
