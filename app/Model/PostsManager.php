@@ -5,9 +5,12 @@ namespace App\Model;
 use App\Model\Entity\PostEntity;
 
 class PostsManager extends Manager
-{
+{    
     /**
+     * create
      * Enregistre un article
+     * @param  mixed $post
+     * @return void
      */
     public function create(PostEntity $post)
     {
@@ -27,13 +30,19 @@ class PostsManager extends Manager
         return true;
     }
 
+        
     /**
+     * readAll
      * Retourne tous les articles
+     * @return void
      */
     public function readAll()
     {
 
-        $query = "SELECT * FROM post order by id";
+        $query = "SELECT post.id, post.title, post.chapo, post.content, post.author, post.date, post.date_maj, user.username as authoruser
+        FROM post
+        INNER JOIN user ON post.author = user.id 
+        order by post.date_maj desc";
         $response = self::getPdo()->prepare($query);
         $response->execute();
         $allposts = $response->fetchAll();
@@ -41,12 +50,19 @@ class PostsManager extends Manager
         return $objects;
     }
 
+        
     /**
-     * Retourne un article
+     * readOne
+     * Retourne un article en fonction de l'id passé en parametre
+     * @param  mixed $id
+     * @return void
      */
     public function readOne(int $id)
     {
-        $query = "SELECT * FROM post WHERE id= ?";
+        $query = "SELECT post.id, post.title, post.chapo, post.content, post.author, post.date, post.date_maj, user.username as authoruser
+        FROM post
+        INNER JOIN user ON post.author = user.id  
+        WHERE post.id= ?";
         $response = self::getPdo()->prepare($query);
         $response->execute(array($id));
         $data = $response->fetch();
@@ -57,8 +73,14 @@ class PostsManager extends Manager
         $post = new PostEntity($data);
         return $post;
     }
+    
+    
+        
     /**
+     * update
      * Met à jour un article
+     * @param  mixed $post
+     * @return void
      */
     public function update(PostEntity $post)
     {
@@ -75,8 +97,12 @@ class PostsManager extends Manager
         ]);
     }
 
+       
     /**
-     * supprime un article
+     * delete
+     *supprime un article
+     * @param  mixed $post
+     * @return void
      */
     public function delete(PostEntity $post)
     {

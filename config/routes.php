@@ -6,10 +6,22 @@ $router->setNamespace('App\Controller');
 
 $router->get('/', 'PublicController@index');
 $router->get('/403', 'PublicController@forbidden');
+$router->get('/about', 'PublicController@about');
+
+
+//form
+
+$router->get('/form', 'FormController@index');
+$router->post('/form/sent', 'FormController@sent');
+
+
 //connexion
 $router->before('GET','/login', function () {
     $undo=$_SERVER['HTTP_REFERER'];
     setcookie('undo',$undo);
+});
+$router->before('POST','/checklogin', function () { $undo=$_SERVER['HTTP_REFERER'];
+    $_COOKIE['undo']='/';
 });
 
 $router->get('/login', 'UsersController@login');
@@ -21,6 +33,7 @@ $router->post('/validation', 'UsersController@validation');
 
 $router->get('/articles', 'PostsController@all');
 $router->get('/articles/(\d+)', 'PostsController@one');
+
 
 $router->post('/admin/users/(\d+)/delete', 'UsersController@delete');
 $router->post('/admin/users/(\d+)/valided', 'UsersController@valided');

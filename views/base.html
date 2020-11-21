@@ -1,26 +1,105 @@
-
-<! DOCTYPE html>
-<html lang = "fr">
+<!doctype html>
+<html lang="fr">
 
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
-    <title> Document </title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>{% block title %}Acceuil{% endblock title %}</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+    type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.css">
+  {% block css %}
+  <link href="/css/styles.css" rel="stylesheet" />
+  {% endblock css %}
 </head>
-  <body>
-    
-    <nav class="nav justify-content-center">
-      
-      <a href="{{ base_path }}">page d'accueil</a>
-      <a href="{{ base_path ~ 'articles' }}">liste des articles</a>
-      <a href="{{ base_path ~ 'admin' }}">Admin</a>
-      {% block menu %}{% block username %}{% endblock username %}{% endblock menu%}
-    </nav>
-  </div>
-    
-  
-    
-  {% block content %}{% endblock %}
+
+
+<body>
+  {% block nav %}
+  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="{{ base_path }}">Accueil</a>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
+        type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+              href="{{ base_path ~ 'articles' }}">liste des articles</a></li>
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+              href="{{ base_path ~ 'about' }}">A propos</a></li>
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+              href="{{ base_path ~ 'form' }}">Me contacter</a></li>
+          {% block menu %}{% block username %}{% endblock username %}{% endblock menu%}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock nav %}
+  <header class="masthead">
+    {% block content %}{% endblock %}
+  </header>
+
+  <!-- Cookie-Alert -->
+<div class="alert text-center cookiealert" role="alert">
+  <b>Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site Web</b>
+  <button type="button" class="btn btn-primary btn-sm acceptcookies">j'accepte</button>
+</div>
+<!-- END Cookie-Alert -->
+
+  <!-- Footer-->
+  <footer class="footer text-center">
+    <div class="container">
+      <div class="row">
+        <!-- Footer Location-->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Adresse</h4>
+          <p class="lead mb-0">
+            7 rue du Cendre
+            <br />
+            63730 Les Martres de Veyre
+          </p>
+        </div>
+        <!-- Footer Social Icons-->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Réseaux</h4>
+          <a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/in/j%C3%A9r%C3%B4me-petitgas-83269227/"><i class="fab fa-fw fa-linkedin-in"></i></a>
+          <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/Jpetitgas"><i class="fab fa-fw  fa-github"></i></a>
+        </div>
+
+        <!-- Footer About Text-->
+        <div class="col-lg-4">
+          {% block admin %}
+          
+          {% endblock admin %}
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Third party plugin JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <!--cookies-->
+  <script src="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.js"></script>
+  <!-- Core theme JS-->
+  {% block js %}
+  <script src="js/scripts.js"></script>
+  {% endblock js %}
  
-  </body>
+</body>
+
 </html>

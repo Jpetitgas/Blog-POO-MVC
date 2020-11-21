@@ -6,9 +6,19 @@ use App\Model\CommentsManager;
 use App\Model\PostsManager;
 use App\Model\Entity\PostEntity;
 
+/**
+ * PostsController
+ *  CRUD de la table post en lien avec PostManager
+ * 
+ */
 class PostsController extends Controller
 {
-
+    
+    /**
+     * record
+     *enregistrer un nouveau post
+     * @return void
+     */
     public static function record()
     {
         $controlled_array = self::Control_array($_POST);
@@ -18,7 +28,13 @@ class PostsController extends Controller
         $redir = 'location: /admin';
         return header($redir);
     }
-
+    
+    /**
+     * all
+     *recherche tous les posts
+     * 
+     * @return void
+     */
     public static function all()
     {
         $posts = new PostsManager;
@@ -27,7 +43,16 @@ class PostsController extends Controller
             'posts' => $posts->readAll(),
             'global' => self::$global,
         ]);
-    }
+    }    
+    /**
+     * one
+     *
+     * chercher le post de l'id passé en param
+     * et genere le page one.htlm
+     * 
+     * @param  mixed $id
+     * @return void
+     */
     public static function one(int $id)
     {
         $post = new PostsManager;
@@ -46,7 +71,12 @@ class PostsController extends Controller
             'global' => self::$global,
         ]);
     }
-
+    
+    /**
+     * update
+     *met à jour le post dont l'id est passé en $_POST
+     * @return void
+     */
     public static function update()
     {
         $posts = new PostsManager;
@@ -57,7 +87,15 @@ class PostsController extends Controller
         $redir = 'location: /admin';
         return header($redir);
     }
-
+    
+    /**
+     * delete
+     * supprime le post dont l'id est passé en parametre et tous ses commentaires
+     * 
+     * 
+     * @param  mixed $id
+     * @return void
+     */
     public static function delete(int $id)
     {
         $id = self::valid_data($id);

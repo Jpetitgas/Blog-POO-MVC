@@ -6,11 +6,25 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Controller\\AbstractController' => $baseDir . '/app/Controller/AbstractController.php',
-    'App\\Controller\\AppController' => $baseDir . '/app/Controller/AppController.php',
-    'App\\Controller\\ArticlesController' => $baseDir . '/app/Controller/ArticlesController.php',
+    'App\\Controller\\AdminController' => $baseDir . '/app/Controller/AdminController.php',
+    'App\\Controller\\CommentsController' => $baseDir . '/app/Controller/CommentsController.php',
+    'App\\Controller\\Controller' => $baseDir . '/app/Controller/Controller.php',
+    'App\\Controller\\FormController' => $baseDir . '/app/Controller/FormController.php',
+    'App\\Controller\\PostsController' => $baseDir . '/app/Controller/PostsController.php',
+    'App\\Controller\\PublicController' => $baseDir . '/app/Controller/PublicController.php',
+    'App\\Controller\\UsersController' => $baseDir . '/app/Controller/UsersController.php',
+    'App\\Model\\CommentsManager' => $baseDir . '/app/Model/CommentsManager.php',
+    'App\\Model\\Entity\\CommentEntity' => $baseDir . '/app/Model/Entity/CommentEntity.php',
     'App\\Model\\Entity\\Entity' => $baseDir . '/app/Model/Entity/Entity.php',
     'App\\Model\\Entity\\PostEntity' => $baseDir . '/app/Model/Entity/PostEntity.php',
+    'App\\Model\\Entity\\UserEntity' => $baseDir . '/app/Model/Entity/UserEntity.php',
     'App\\Model\\Manager' => $baseDir . '/app/Model/Manager.php',
     'App\\Model\\PostsManager' => $baseDir . '/app/Model/PostsManager.php',
+    'App\\Model\\UsersManager' => $baseDir . '/app/Model/UsersManager.php',
+    'Dompdf\\Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
+    'HTML5_Data' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Data.php',
+    'HTML5_InputStream' => $vendorDir . '/dompdf/dompdf/lib/html5lib/InputStream.php',
+    'HTML5_Parser' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Parser.php',
+    'HTML5_Tokenizer' => $vendorDir . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
+    'HTML5_TreeBuilder' => $vendorDir . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
 );

@@ -16,7 +16,13 @@ abstract class Entity {
   {
     $this->id = (int) $id;
   }
- 
+   
+  /**
+   * hydrate
+   * 
+   * @param  array $donnees
+   * @return void
+   */
   public function hydrate(array $donnees)
   {
     foreach ($donnees as $attribut => $valeur)
