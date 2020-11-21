@@ -96,16 +96,16 @@ class PostsController extends Controller
      * @param  mixed $id
      * @return 
      */
-    public static function delete(int $id)
+    public static function delete(int $id_post)
     {
-        $id = self::valid_data($id);
+        $id_post = self::valid_data($id_post);
         $posts = new PostsManager;
         $comments = new CommentsManager;
-        $commentsOfPost = $comments->findAllByPost($id);
+        $commentsOfPost = $comments->findAllByPost($id_post);
         foreach ($commentsOfPost as $comment) {
             $comments->delete($comment);
         }
-        $post = $posts->readOne($id);
+        $post = $posts->readOne($id_post);
         $posts->delete($post);
         $redir = 'location: /admin';
         return header($redir);

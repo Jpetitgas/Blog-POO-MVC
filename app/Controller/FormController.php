@@ -23,7 +23,7 @@ class FormController extends Controller
      */
     public static function sent()
     {
-        $controlled_array = self::Control_array($_POST);
+        $controlled_array = self::Control_array();
         $message= $controlled_array['name']. ' '.$controlled_array['prenom'] .'('.$controlled_array['email'].') vous à envoyer le message suivant :'. $controlled_array['content'];
         $email=MAIL;
         self::sentMail($email, 'formulaire de contact', $message);
