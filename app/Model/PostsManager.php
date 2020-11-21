@@ -102,7 +102,7 @@ class PostsManager extends Manager
      * delete
      *supprime un article
      * @param  mixed $post
-     * @return void
+     * @return object
      */
     public function delete(PostEntity $post)
     {
