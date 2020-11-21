@@ -6,11 +6,12 @@ use App\Model\Entity\Entity;
 
 class PostEntity extends Entity{
 
-    private   $author;
-    private   $title;
-    private   $chapo;
-    private   $content;
-    private   $date_maj;
+    private $author;
+    private $title;
+    private $chapo;
+    private $content;
+    private $date_maj;
+    private $authoruser;
  
     public function __construct(array $donnees){
       if (!empty($donnees))
@@ -44,7 +45,11 @@ class PostEntity extends Entity{
   {
     $this->date_maj = $date_maj;
   }
-
+  public function setAuthoruser($authoruser)
+  {
+    $this->authoruser = $authoruser;
+  }
+  
   // GETTERS //
 
   public function author()
@@ -69,8 +74,16 @@ class PostEntity extends Entity{
 
   public function date_maj()
   {
-    return $this->date_maj;
+    
+    $date= date("d/m/Y", strtotime($this->date_maj));
+    return  $date;
   }
+
+  public function authoruser()
+  {
+    return $this->authoruser;
+  }
+  
 }
 
 

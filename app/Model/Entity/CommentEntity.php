@@ -10,7 +10,7 @@ class CommentEntity extends Entity
   private $id_post;
   private $comment;
   private $valided;
-  private $id_author;
+  private $id_user;
   private $author;
   private $post;
   private $date;
@@ -41,9 +41,9 @@ class CommentEntity extends Entity
 
     $this->valided = $valided;
   }
-  public function setId_author($id_author)
+  public function setId_author($id_user)
   {
-    $this->id_author =(int) $id_author;
+    $this->id_user =(int) $id_user;
   }
   
   public function setAuthor($author)
@@ -75,9 +75,9 @@ class CommentEntity extends Entity
   {
     return $this->valided;
   }
-  public function id_author()
+  public function id_user()
   {
-    return $this->id_author;
+    return $this->id_user;
   }
   public function author()
   {
@@ -89,6 +89,7 @@ class CommentEntity extends Entity
   }
   public function date()
   {
-    return $this->date;
+    $date= date("d/m/Y", strtotime($this->date));
+    return  $date;
   }
 }

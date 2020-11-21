@@ -22,6 +22,15 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
+            'Svg\\' => 4,
+        ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+        ),
+        'D' => 
+        array (
+            'Dompdf\\' => 7,
         ),
         'A' => 
         array (
@@ -46,6 +55,18 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -53,6 +74,13 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
     );
 
     public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'Sabberworm\\CSS' => 
+            array (
+                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
+            ),
+        ),
         'B' => 
         array (
             'Bramus' => 
@@ -63,13 +91,27 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
     );
 
     public static $classMap = array (
-        'App\\Controller\\AbstractController' => __DIR__ . '/../..' . '/app/Controller/AbstractController.php',
-        'App\\Controller\\AppController' => __DIR__ . '/../..' . '/app/Controller/AppController.php',
-        'App\\Controller\\ArticlesController' => __DIR__ . '/../..' . '/app/Controller/ArticlesController.php',
+        'App\\Controller\\AdminController' => __DIR__ . '/../..' . '/app/Controller/AdminController.php',
+        'App\\Controller\\CommentsController' => __DIR__ . '/../..' . '/app/Controller/CommentsController.php',
+        'App\\Controller\\Controller' => __DIR__ . '/../..' . '/app/Controller/Controller.php',
+        'App\\Controller\\FormController' => __DIR__ . '/../..' . '/app/Controller/FormController.php',
+        'App\\Controller\\PostsController' => __DIR__ . '/../..' . '/app/Controller/PostsController.php',
+        'App\\Controller\\PublicController' => __DIR__ . '/../..' . '/app/Controller/PublicController.php',
+        'App\\Controller\\UsersController' => __DIR__ . '/../..' . '/app/Controller/UsersController.php',
+        'App\\Model\\CommentsManager' => __DIR__ . '/../..' . '/app/Model/CommentsManager.php',
+        'App\\Model\\Entity\\CommentEntity' => __DIR__ . '/../..' . '/app/Model/Entity/CommentEntity.php',
         'App\\Model\\Entity\\Entity' => __DIR__ . '/../..' . '/app/Model/Entity/Entity.php',
         'App\\Model\\Entity\\PostEntity' => __DIR__ . '/../..' . '/app/Model/Entity/PostEntity.php',
+        'App\\Model\\Entity\\UserEntity' => __DIR__ . '/../..' . '/app/Model/Entity/UserEntity.php',
         'App\\Model\\Manager' => __DIR__ . '/../..' . '/app/Model/Manager.php',
         'App\\Model\\PostsManager' => __DIR__ . '/../..' . '/app/Model/PostsManager.php',
+        'App\\Model\\UsersManager' => __DIR__ . '/../..' . '/app/Model/UsersManager.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
+        'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
+        'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
+        'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
+        'HTML5_Tokenizer' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
+        'HTML5_TreeBuilder' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

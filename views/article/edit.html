@@ -1,33 +1,53 @@
 {% extends 'base.html' %}
-
+{% block title %}Modification d'un article{% endblock title %}
+{% block css %}
+<link href="/css/styles.css" rel="stylesheet" />
+{% endblock css %}
 {% block menu %}
-    
-    {% if connected == 1 %}
-        <a href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a>
-        {% block username %}
-            <p>bonjour, {{ name }}</p>
-        {% endblock username %}
-    {% else %}
-        <a href="{{ base_path ~ 'login' }}">Se connecter</a>
-    {% endif %}
+
+{% if global.connect == 1 %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a></li>
+                {% block username %}
+                <li class="nav-item mx-lg-1 row align-items-center text-success">bonjour, {{ global.username }}</li>
+                {% endblock username %}
+{% else %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                href="{{ base_path ~ 'login' }}">Se connecter</a></li>
+{% endif %}
 {% endblock menu %}
 
 {% block content %}
-    
-        <h1>Modification de l'article : {{ post.title }}.</h1>
-        <form action="{{ base_path ~ '/admin/articles/'~ post.id~'/update'}}" method="post">
-            
-                <div class="form-group">
-                    <div class="form-group">
-                        <input type="hidden" value="{{ post.id }}" name="id">
-                        <input type="textarea" class="form-control" value="{{ post.title }}" name="title">
-                        <input type="textarea" class="form-control" value="{{ post.chapo }}" name="chapo">
-                        <input type="textarea" class="form-control" value="{{ post.content }}" name="content">
-                        
-                    </div>
-                    <button class="btn btn-success">Envoyer</button>
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Modification de : {{ post.title }}</h2>
+
+<div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+</div>
+
+
+        <div class="container">
+                <div class="card-body">
+
+                        <form action="{{ base_path ~ '/admin/articles/'~ post.id~'/update'}}" method="post">
+                                <div class="form-group">
+                                        <input type="hidden" value="{{ post.id }}" name="id">
+                                        <input type="textarea" class="form-control" value="{{ post.title }}"
+                                                name="title">
+                                        <textarea class="form-control" rows="3" name="chapo">{{ post.chapo }}</textarea>
+                                        <textarea class="form-control" rows="10" name="content">{{ post.content }}></textarea>
+
+                                </div>
+                                <button class="btn btn-success">Envoyer</button>
+                                <a href="{{ base_path ~ '/admin'}}"> retour</a>
+                        </form>
+
                 </div>
-           
-        </form>
+               
+        </div>
 
 {% endblock %}
+{% block js %}
+<script src="/js/scripts.js"></script>
+{% endblock js %}

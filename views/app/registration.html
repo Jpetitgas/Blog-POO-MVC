@@ -1,29 +1,32 @@
 {% extends 'base.html' %}
-
+{% block title %}Créer un compte{% endblock title %}
 {% block content %}
-<h1>Création d'un compte</h1>
+
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Création d'un compten</h2>
+
+<div class="divider-custom">
+    <div class="divider-custom-line"></div>
+    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+    <div class="divider-custom-line"></div>
+</div>
 <form action="{{ base_path ~ 'validation'}}" method="post">
-    <section class="page-section portfolio" >
-        <div class="form-group">
-            <div class="form-group">
-                <label for="">Votre identiant: </label>
-                <input type="text" class="form-control" name="username">
-            </div>
-        
-            <div class="form-group">
-                <label for="">Votre mot de passe : </label>
-                <input type="password" class="form-control" name="password">
-            </div>
-            
-            <div class="form-group">
-                <label for="">Adresse email : </label>
-                <input type="email" class="form-control" name="email">
-            </div>
-           
-            <button class="btn btn-success">S'inscrire</button>
+    <div class="d-flex align-items-center flex-column">
+        <div class="p-2">
+            <input class="form-control" type="text" placeholder="Votre identiant" name="username" required>
         </div>
-    </section>
-    </form>
-    <a href="{{ base_path ~ '/'}}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Annuler</a>
+        <div class="p-2">
+            <input class="form-control" type="password" placeholder="Votre mot de passe" name="password" required>
+        </div>
+        <div class="p-2">
+            <input class="form-control" type="email" placeholder="Votre adresse email" name="email" required>
+        </div>
+        <div class="p-2">
+            <button class="btn btn-primary">S'inscrire</button>
+        </div>
+        <div class="p-2">
+            <a href="{{ base_path ~ '/'}}">Annuler</a>
+        </div>
+    </div>
+</form>
 {% endblock %}
 

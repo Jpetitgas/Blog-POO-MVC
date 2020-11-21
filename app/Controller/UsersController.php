@@ -10,11 +10,22 @@ class UsersController extends Controller
 {
 
 
+    /**
+     * login
+     *genere le formulaire de connection
+     * @return void
+     */
     public static function login()
     {
         echo self::getTwig()->render('app/login.html');
     }
 
+    /**
+     * checkLogin
+     *verification de l'identifiant et mot de passe
+     *met à jour les variable de session
+     * @return void
+     */
     public static function checkLogin()
     {
         $users = new UsersManager();
@@ -22,35 +33,52 @@ class UsersController extends Controller
         $user = $users->get($controlled_array['username']);
 
         if (empty($user)) {
-            echo ("l'utilisateur n'existe pas");
+            self::message("l'utilisateur n'existe pas");
             die();
         }
         if ($user[0]->valided() == 1) {
-            echo ("Le compte n'est pas encore actif");
+            self::message("Le compte n'est pas encore actif");
             die();
         }
         if ($user[0]->password() === sha1($_POST['password'])) {
             $_SESSION['auth'] = $user[0]->id();
             $_SESSION['role'] = $user[0]->role();
             $_SESSION['user'] = $controlled_array['username'];
-            
+        } else {
+            self::message("Le mot de passe n'est pas correct");
+            die();
         }
-        if (isset($_COOKIE['undo'])){
-            $undo=$_COOKIE['undo'];
-            $redir = 'location: '.$undo;
-        } else {$redir = 'location: /';}
+        if (isset($_COOKIE['undo'])) {
+            $undo = $_COOKIE['undo'];
+            $redir = 'location: ' . $undo;
+            return header($redir);
+        } else {
+            $redir = 'location: /';
+            return header($redir);
+        }
+
         
-        return header($redir);
     }
 
+    /**
+     * unlogged
+     *fonction de deconnection et de suppression des variable session
+     * @return void
+     */
     public static function unlogged()
     {
         session_unset();
-        $undo=$_SERVER['HTTP_REFERER'];
-        $redir = 'location: '.$undo;
+        $undo = $_SERVER['HTTP_REFERER'];
+        $redir = 'location: ' . $undo;
         return header($redir);
     }
 
+    /**
+     * edit
+     *edite un utilisateur pour modification
+     * @param  mixed $id
+     * @return void
+     */
     public static function edit(int $id)
     {
         $id = self::valid_data($id);
@@ -59,11 +87,21 @@ class UsersController extends Controller
             'user' => $user->readOne($id),
         ]);
     }
+    /**
+     * registration
+     *genere le formulaire d'enregistrement
+     * @return void
+     */
     public static function registration()
     {
         echo self::getTwig()->render('app/registration.html');
     }
 
+    /**
+     * validation
+     *enregistrement d'un nouveau utilisateur
+     * @return void
+     */
     public static function validation()
     {
         $_POST['password'] = sha1($_POST['password']);
@@ -74,6 +112,11 @@ class UsersController extends Controller
         $redir = 'location: /admin';
         return header($redir);
     }
+    /**
+     * valided
+     * validation d'un nouveeu utilisateur et envoi d'un mail de confirmation
+     * @return void
+     */
     public static function valided()
     {
         $users = new UsersManager;
@@ -81,9 +124,18 @@ class UsersController extends Controller
         $user = $users->readOne($id);
         $user->hydrate($_POST);
         $users->valided($user);
-        $rediction = 'location: /admin';
-        return header($rediction);
-    }
+        
+        
+
+        $message = "bonjour ". $user->Username() ." , votre compte a été validé!";
+        self::sentMail($user->email(), "validation de votre compte", $message);
+        
+    }    
+    /**
+     * update
+     * mise à jour de l'utilisateur
+     * @return void
+     */
     public static function update()
     {
         $users = new UsersManager;
@@ -94,7 +146,12 @@ class UsersController extends Controller
         $users->update($user);
         $redir = 'location: /admin';
         return header($redir);
-    }
+    }    
+    /**
+     * delete
+     * suppression de l'utilisateur dont id est passé en parametre
+     * @return void
+     */
     public static function delete()
     {
         $users = new UsersManager;
