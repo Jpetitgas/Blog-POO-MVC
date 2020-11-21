@@ -12,9 +12,9 @@ class FormController extends Controller
     public static function index() 
     {
         self::global();
-        echo self::getTwig()->render('app/form.html',[
+        self::view (self::getTwig()->render('app/form.html',[
         'global'=>self::$global,
-            ]);
+            ]));
     }    
     /**
      * sent

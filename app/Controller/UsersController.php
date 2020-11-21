@@ -156,8 +156,9 @@ class UsersController extends Controller
      */
     public static function delete()
     {
+        $controlled_array = self::Control_array();
         $users = new UsersManager;
-        $id = self::valid_data($_POST['id']);
+        $id = self::valid_data($controlled_array['id']);
         $user = $users->readOne($id);
         $users->delete($user);
         $redir = 'location: /admin';

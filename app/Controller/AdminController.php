@@ -22,13 +22,13 @@ class AdminController extends Controller
         $users = new UsersManager;
         self::global();
 
-        echo self::getTwig()->render('admin/admin.html', [
+        self::view (self::getTwig()->render('admin/admin.html', [
             'posts' => $posts->readAll(),
             'comments' => $comments->findAll(0),
             'allusers' => $users->findAll(2),
             'users' => $users->findAll(1),
             'global' => self::$global,
-        ]);
+        ]));
     }
     /**
      * create
@@ -38,9 +38,9 @@ class AdminController extends Controller
     public static function create()
     {
         self::global();
-        echo self::getTwig()->render('article/create.html', [
+        self::view (self::getTwig()->render('article/create.html', [
             'global' => self::$global,
-        ]);
+        ]));
     }
 
     /**
@@ -54,9 +54,9 @@ class AdminController extends Controller
         $id = self::valid_data($id);
         $post = new PostsManager;
         self::global();
-        echo self::getTwig()->render('article/edit.html', [
+        self::view ( self::getTwig()->render('article/edit.html', [
             'post' => $post->readOne($id),
             'global' => self::$global,
-        ]);
+        ]));
     }
 }

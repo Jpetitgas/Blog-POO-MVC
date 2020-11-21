@@ -39,10 +39,10 @@ class PostsController extends Controller
     {
         $posts = new PostsManager;
         self::global();
-        echo self::getTwig()->render('article/all.html', [
+        self::view ( self::getTwig()->render('article/all.html', [
             'posts' => $posts->readAll(),
             'global' => self::$global,
-        ]);
+        ]));
     }    
     /**
      * one
@@ -64,12 +64,12 @@ class PostsController extends Controller
             $connect = false;
         }
         self::global();
-        echo self::getTwig()->render('article/one.html', [
+        self::view ( self::getTwig()->render('article/one.html', [
             'post' => $post->readOne($id),
             'comments' => $comments->findAllValidedByPost($id),
             'auth' => $connect,
             'global' => self::$global,
-        ]);
+        ]));
     }
     
     /**
