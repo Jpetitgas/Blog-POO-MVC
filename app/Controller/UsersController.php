@@ -41,9 +41,9 @@ class UsersController extends Controller
             die();
         }
         if ($user[0]->password() === sha1($controlled_array['password'])) {
-            $_SESSION['auth'] = $user[0]->id();
-            $_SESSION['role'] = $user[0]->role();
-            $_SESSION['user'] = $controlled_array['username'];
+            self::put('auth', $user[0]->id());
+            self::put('role' ,$user[0]->role());
+            self::put('user' , $controlled_array['username']);
         } else {
             self::message("Le mot de passe n'est pas correct");
             die();

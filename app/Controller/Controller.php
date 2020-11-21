@@ -69,6 +69,19 @@ abstract class Controller
         $data = htmlspecialchars($data);
         return $data;
     }    
+    
+    public static function put($key, $value){
+        $_SESSION[$key] = $value;
+    }
+
+    public static function get($key){
+        return (isset($_SESSION[$key]) ? $_SESSION[$key] : null);
+    }
+
+    public static function forget($key){
+        unset($_SESSION[$key]);
+    }
+    
     /**
      * global
      *prepare des variables permettant la construction des fichiers html
@@ -79,9 +92,9 @@ abstract class Controller
     {
         if (isset($_SESSION['auth'])) {
             self::$global['connect'] = 1;
-            self::$global['username'] = $_SESSION['user'];
-            self::$global['userid'] = $_SESSION['auth'];
-            self::$global['role'] = $_SESSION['role'];
+            self::$global['username'] = self::get('user');
+            self::$global['userid'] = self::get('auth');
+            self::$global['role'] = self::get('role');
         } else {
             self::$global['connect'] = 2;
             self::$global['username'] = "";
@@ -120,9 +133,9 @@ abstract class Controller
     public static function message(string $message) 
     {
         self::global();
-        echo self::getTwig()->render('app/message.html',[
+        self::view ( self::getTwig()->render('app/message.html',[
             'message'=>$message,
             'global'=>self::$global,
-            ]);
+            ]));
     }
 }
