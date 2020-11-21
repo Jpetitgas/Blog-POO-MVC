@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Controlleur des posts
+ * 
+ */
+
 namespace App\Controller;
 
 use App\Model\CommentsManager;
@@ -13,7 +18,7 @@ use App\Model\Entity\PostEntity;
  */
 class PostsController extends Controller
 {
-    
+
     /**
      * record
      *enregistrer un nouveau post
@@ -28,7 +33,7 @@ class PostsController extends Controller
         $redir = 'location: /admin';
         return header($redir);
     }
-    
+
     /**
      * all
      *recherche tous les posts
@@ -39,11 +44,14 @@ class PostsController extends Controller
     {
         $posts = new PostsManager;
         self::global();
-        echo self::getTwig()->render('article/all.html', [
-            'posts' => $posts->readAll(),
-            'global' => self::$global,
-        ]);
-    }    
+        echo self::getTwig()->render(
+            'article/all.html',
+            [
+                'posts' => $posts->readAll(),
+                'global' => self::$global,
+            ]
+        );
+    }
     /**
      * one
      *
@@ -71,12 +79,12 @@ class PostsController extends Controller
             'global' => self::$global,
         ]);
     }
-    
+
     /**
-     * update
-     *met à jour le post dont l'id est passé en $_POST
-     * @return void
-     */
+    * update
+    *met à jour le post dont l'id est passé en $_POST
+    * @return void
+    */
     public static function update()
     {
         $posts = new PostsManager;
@@ -87,7 +95,7 @@ class PostsController extends Controller
         $redir = 'location: /admin';
         return header($redir);
     }
-    
+
     /**
      * delete
      * supprime le post dont l'id est passé en parametre et tous ses commentaires
@@ -96,16 +104,16 @@ class PostsController extends Controller
      * @param  mixed $id
      * @return void
      */
-    public static function delete(int $id)
+    public static function delete(int $id_post)
     {
-        $id = self::valid_data($id);
+        $id = self::valid_data($id_post);
         $posts = new PostsManager;
         $comments = new CommentsManager;
-        $commentsOfPost = $comments->findAllByPost($id);
+        $commentsOfPost = $comments->findAllByPost($id_post);
         foreach ($commentsOfPost as $comment) {
             $comments->delete($comment);
         }
-        $post = $posts->readOne($id);
+        $post = $posts->readOne($id_post);
         $posts->delete($post);
         $redir = 'location: /admin';
         return header($redir);

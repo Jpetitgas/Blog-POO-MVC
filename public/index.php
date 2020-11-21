@@ -1,4 +1,9 @@
 <?php
+/**
+ * page qui instancie le router
+ * 
+ */
+
 session_start();
 use Bramus\Router\Router;
 

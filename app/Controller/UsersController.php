@@ -13,7 +13,7 @@ class UsersController extends Controller
     /**
      * login
      *genere le formulaire de connection
-     * @return void
+     * @return htlm
      */
     public static function login()
     {

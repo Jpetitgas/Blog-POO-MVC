@@ -7,7 +7,8 @@ use App\Model\CommentsManager;
 use App\Model\PostsManager;
 use App\Model\UsersManager;
 
-class AdminController extends Controller {
+class AdminController extends Controller 
+{
         
     /**
      * index
@@ -47,12 +48,12 @@ class AdminController extends Controller {
      * @param  mixed $id
      * @return void
      */
-    public static function edit(int $id){
-        $id=self::valid_data($id);
+    public static function edit(int $id_post){
+        $id=self::valid_data($id_post);
         $post =new PostsManager;
         self::global();
         echo self::getTwig()->render('article/edit.html', [
-            'post' => $post ->readOne($id),
+            'post' => $post ->readOne($id_post),
             'global'=>self::$global,
         ]);
     }

@@ -55,7 +55,7 @@ class PostsManager extends Manager
      * readOne
      * Retourne un article en fonction de l'id passé en parametre
      * @param  mixed $id
-     * @return void
+     * @return object
      */
     public function readOne(int $id)
     {
@@ -102,7 +102,7 @@ class PostsManager extends Manager
      * delete
      *supprime un article
      * @param  mixed $post
-     * @return void
+     * @return object
      */
     public function delete(PostEntity $post)
     {
