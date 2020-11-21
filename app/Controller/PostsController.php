@@ -94,7 +94,7 @@ class PostsController extends Controller
      * 
      * 
      * @param  mixed $id
-     * @return void
+     * @return 
      */
     public static function delete(int $id)
     {
