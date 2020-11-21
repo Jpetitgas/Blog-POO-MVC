@@ -52,7 +52,7 @@ abstract class Manager
     {
         date_default_timezone_set('Europe/Paris');
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-        $date = date("Y-m-d H:i:s", $timestamp = time());
+        $date = date("Y-m-d H:i:s");
 
 
         return $date;
