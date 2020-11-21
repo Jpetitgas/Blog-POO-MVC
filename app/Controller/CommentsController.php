@@ -15,11 +15,11 @@ class CommentsController extends Controller
 
     public static function record()
     {
-        $controlled_array = self::Control_array($_POST);
+        $controlled_array = self::Control_array();
         $comment = new CommentEntity($controlled_array);
         $comments = new CommentsManager;
         $comments->store($comment);
-        $rediction = 'location: /articles/' . $_POST['id'];
+        $rediction = 'location: /articles/' . $controlled_array['id'];
         return header($rediction);
     }
     
@@ -30,10 +30,11 @@ class CommentsController extends Controller
      */
     public static function valided()
     {
+        $controlled_array = self::Control_array();
         $comments = new CommentsManager;
-        $id = self::valid_data($_POST['id']);
+        $id = self::valid_data($controlled_array['id']);
         $comment = $comments->readOne($id);
-        $comment->hydrate($_POST);
+        $comment->hydrate($controlled_array);
         $comments->update($comment);
         $rediction = 'location: /admin';
         return header($rediction);
@@ -46,8 +47,9 @@ class CommentsController extends Controller
      */
     public static function delete()
     {
+        $controlled_array = self::Control_array();
         $comments = new commentsManager;
-        $id = self::valid_data($_POST['id']);
+        $id = self::valid_data($controlled_array['id']);
         $comment = $comments->readOne($id);
         $comments->delete($comment);
         $redir = 'location: /admin';

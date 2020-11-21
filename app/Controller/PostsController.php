@@ -21,7 +21,7 @@ class PostsController extends Controller
      */
     public static function record()
     {
-        $controlled_array = self::Control_array($_POST);
+        $controlled_array = self::Control_array();
         $post = new PostEntity($controlled_array);
         $posts = new PostsManager;
         $posts->create($post);
@@ -80,7 +80,7 @@ class PostsController extends Controller
     public static function update()
     {
         $posts = new PostsManager;
-        $controlled_array = self::Control_array($_POST);
+        $controlled_array = self::Control_array();
         $post = $posts->readOne($controlled_array['id']);
         $post->hydrate($controlled_array);
         $posts->update($post);

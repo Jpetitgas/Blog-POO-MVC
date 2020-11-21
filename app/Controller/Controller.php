@@ -28,8 +28,10 @@ abstract class Controller
      * @param  mixed $array
      * @return array
      */
-    protected static function Control_array(array $array)
+    //array $array
+    protected static function Control_array()
     {
+        $array=$_POST;
         if (isset($array)) {
             $controlled_array = [];
             foreach ($array as $attribut => $valeur) {

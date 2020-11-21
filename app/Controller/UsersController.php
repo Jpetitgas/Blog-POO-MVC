@@ -29,7 +29,7 @@ class UsersController extends Controller
     public static function checkLogin()
     {
         $users = new UsersManager();
-        $controlled_array = self::Control_array($_POST);
+        $controlled_array = self::Control_array();
         $user = $users->get($controlled_array['username']);
 
         if (empty($user)) {
@@ -40,7 +40,7 @@ class UsersController extends Controller
             self::message("Le compte n'est pas encore actif");
             die();
         }
-        if ($user[0]->password() === sha1($_POST['password'])) {
+        if ($user[0]->password() === sha1($controlled_array['password'])) {
             $_SESSION['auth'] = $user[0]->id();
             $_SESSION['role'] = $user[0]->role();
             $_SESSION['user'] = $controlled_array['username'];
@@ -104,8 +104,9 @@ class UsersController extends Controller
      */
     public static function validation()
     {
-        $_POST['password'] = sha1($_POST['password']);
-        $controlled_array = self::Control_array($_POST);
+        $controlled_array = self::Control_array();
+        $controlled_array['password'] = sha1($controlled_array['password']);
+        
         $user = new UserEntity($controlled_array);
         $users = new UsersManager;
         $users->create($user);
@@ -119,10 +120,11 @@ class UsersController extends Controller
      */
     public static function valided()
     {
+        $controlled_array = self::Control_array();
         $users = new UsersManager;
-        $id = self::valid_data($_POST['id']);
+        $id = self::valid_data($controlled_array['id']);
         $user = $users->readOne($id);
-        $user->hydrate($_POST);
+        $user->hydrate($controlled_array);
         $users->valided($user);
         
         
