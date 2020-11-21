@@ -1,0 +1,2 @@
+# Blog-POO-MVC
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ff3d4541d0d14c7ba4a1e1f8b718fe83)](https://app.codacy.com/gh/Jpetitgas/Blog-POO-MVC?utm_source=github.com&utm_medium=referral&utm_content=Jpetitgas/Blog-POO-MVC&utm_campaign=Badge_Grade)
