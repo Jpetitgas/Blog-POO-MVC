@@ -4,6 +4,7 @@ namespace App\Model;
 
 use PDOException;
 use PDO;
+use App\controller\MessageController;
 
 abstract class Manager
 {
@@ -17,8 +18,9 @@ abstract class Manager
             ]);
             return $bdd;
         } catch (PDOException $e) {
-            echo ('impossible de se connecter à la base de donnée');
-            die();
+            $affiche = new MessageController;
+            $affiche->message('impossible de se connecter à la base de données!!');
+            exit;
         }
     }
 

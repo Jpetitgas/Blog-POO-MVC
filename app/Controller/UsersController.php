@@ -55,7 +55,8 @@ class UsersController extends Controller
                 return header($redir);
             }
         } catch (Exception $e) {
-            self::message($e->getMessage());
+            $affiche = new MessageController;
+            $affiche->message($e->getmessage());
         }
     }
 

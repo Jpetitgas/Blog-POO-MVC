@@ -5,6 +5,7 @@ namespace App\Controller;
 use Exception;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use App\Controller\MessageController;
 
 abstract class Controller
 {
@@ -114,21 +115,9 @@ abstract class Controller
         } else {
             echo $message = "Échec de l'envoi de l'email...";
         }
-        self::message($message);
+        $affiche= new MessageController;
+        $affiche->message($message);
     }
 
-    /**
-     * message
-     *fonction qui genere la page avec un message passé en parametre
-     * @param  mixed $message
-     * @return void
-     */
-    public static function message(string $message)
-    {
-        self::global();
-        self::view(self::getTwig()->render('app/message.html', [
-            'message' => $message,
-            'global' => self::$global,
-        ]));
-    }
+   
 }

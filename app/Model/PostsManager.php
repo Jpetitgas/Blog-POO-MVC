@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Entity\PostEntity;
 use App\Controller\Session;
+use App\Controller\MessageController;
 
 class PostsManager extends Manager
 {
@@ -39,17 +40,16 @@ class PostsManager extends Manager
      */
     public function readAll()
     {
-        
-            $query = "SELECT post.id, post.title, post.chapo, post.content, post.author, post.date, post.date_maj, user.username as authoruser
+
+        $query = "SELECT post.id, post.title, post.chapo, post.content, post.author, post.date, post.date_maj, user.username as authoruser
         FROM post
         INNER JOIN user ON post.author = user.id 
         order by post.date_maj desc";
-            $response = self::getPdo()->prepare($query);
-            $response->execute();
-            $allposts = $response->fetchAll();
-            $objects = $this->arrayToObject($allposts, 'post');
-            return $objects;
-        
+        $response = self::getPdo()->prepare($query);
+        $response->execute();
+        $allposts = $response->fetchAll();
+        $objects = $this->arrayToObject($allposts, 'post');
+        return $objects;
     }
 
 
@@ -69,8 +69,9 @@ class PostsManager extends Manager
         $response->execute(array($id_post));
         $data = $response->fetch();
         if (!$data) {
-            header('location: /404');
-            die();
+            $affiche = new MessageController;
+            $affiche->message('Cet article n\'hesiste pas!');
+            exit;
         }
         $post = new PostEntity($data);
         return $post;

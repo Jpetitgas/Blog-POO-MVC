@@ -23,7 +23,7 @@ $router->before('GET','/login', function () {
     setcookie('undo',$undo);
 });
 $router->before('POST','/checklogin', function () { $undo=$_SERVER['HTTP_REFERER'];
-    $_COOKIE['undo']='/';
+    //$_COOKIE['undo']='/';
 });
 
 $router->get('/login', 'UsersController@login');

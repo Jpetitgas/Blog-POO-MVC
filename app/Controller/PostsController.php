@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Model\CommentsManager;
 use App\Model\PostsManager;
 use App\Model\Entity\PostEntity;
-use Exception;
-use PDOException;
+
 
 /**
  * PostsController

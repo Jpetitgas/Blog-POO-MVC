@@ -31,7 +31,8 @@ class FormController extends Controller
             $email = MAIL;
             self::sentMail($email, 'formulaire de contact', $message);
         } catch (Exception $e) {
-            self::message($e->getmessage());
+            $affiche = new MessageController;
+            $affiche->message($e->getmessage());
         }
     }
 }
