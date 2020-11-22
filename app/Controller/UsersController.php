@@ -68,7 +68,9 @@ class UsersController extends Controller
     public static function unlogged()
     {
         session_unset();
-        $undo = $_SERVER['HTTP_REFERER'];
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $undo = $_SERVER['HTTP_REFERER'];
+        }
         $redir = 'location: ' . $undo;
         return header($redir);
     }

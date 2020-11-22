@@ -89,12 +89,12 @@ abstract class Controller
             self::$global['username'] = $session::get('user');
             self::$global['userid'] = $session::get('auth');
             self::$global['role'] = $session::get('role');
-        } 
+        } else{
             self::$global['connect'] = 2;
             self::$global['username'] = "";
             self::$global['userid'] = "";
             self::$global['role'] = "";
-       
+        }
     }
 
     /**
