@@ -93,9 +93,6 @@ abstract class Controller
      */
     protected static function sentMail($email, $subject, $message)
     {
-        
-             
-        
         if (mail($email, $subject, $message)) {
             echo $message="Email envoyé avec succès";
           } else {
