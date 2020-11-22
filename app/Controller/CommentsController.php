@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Model\CommentsManager;
-
+use Exception;
 use App\Model\Entity\CommentEntity;
 
 /**
@@ -15,12 +15,17 @@ class CommentsController extends Controller
 
     public static function record()
     {
+        try{
         $controlled_array = self::Control_array();
         $comment = new CommentEntity($controlled_array);
         $comments = new CommentsManager;
         $comments->store($comment);
         $rediction = 'location: /articles/' . $controlled_array['id'];
         return header($rediction);
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
     
     /**
@@ -30,6 +35,7 @@ class CommentsController extends Controller
      */
     public static function valided()
     {
+        try{
         $controlled_array = self::Control_array();
         $comments = new CommentsManager;
         $id = self::valid_data($controlled_array['id']);
@@ -38,6 +44,10 @@ class CommentsController extends Controller
         $comments->update($comment);
         $rediction = 'location: /admin';
         return header($rediction);
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
     
     /**
@@ -47,6 +57,7 @@ class CommentsController extends Controller
      */
     public static function delete()
     {
+        try{
         $controlled_array = self::Control_array();
         $comments = new commentsManager;
         $id = self::valid_data($controlled_array['id']);
@@ -54,5 +65,9 @@ class CommentsController extends Controller
         $comments->delete($comment);
         $redir = 'location: /admin';
         return header($redir);
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
 }

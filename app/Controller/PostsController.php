@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Model\CommentsManager;
 use App\Model\PostsManager;
 use App\Model\Entity\PostEntity;
-
+use Exception;
 
 /**
  * PostsController
@@ -22,12 +22,18 @@ class PostsController extends Controller
      */
     public static function record()
     {
-        $controlled_array = self::Control_array();
-        $post = new PostEntity($controlled_array);
-        $posts = new PostsManager;
-        $posts->create($post);
-        $redir = 'location: /admin';
-        return header($redir);
+
+        try {
+            $controlled_array = self::Control_array();
+            $post = new PostEntity($controlled_array);
+            $posts = new PostsManager;
+            $posts->create($post);
+            $redir = 'location: /admin';
+            return header($redir);
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
+        }
     }
 
     /**
@@ -38,14 +44,17 @@ class PostsController extends Controller
      */
     public static function all()
     {
-       
+        try {
             $posts = new PostsManager;
             self::global();
             self::view(self::getTwig()->render('article/all.html', [
                 'posts' => $posts->readAll(),
                 'global' => self::$global,
             ]));
-        
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
+        }
     }
     /**
      * one
@@ -58,23 +67,28 @@ class PostsController extends Controller
      */
     public static function one(int $id)
     {
-        $post = new PostsManager;
-        $id = self::valid_data($id);
-        $comments = new CommentsManager;
-        $session = new Session;
-        $auth = $session::get('auth');
-        if (isset($auth)) {
-            $connect = true;
-        } else {
-            $connect = false;
+        try {
+            $post = new PostsManager;
+            $id = self::valid_data($id);
+            $comments = new CommentsManager;
+            $session = new Session;
+            $auth = $session::get('auth');
+            if (isset($auth)) {
+                $connect = true;
+            } else {
+                $connect = false;
+            }
+            self::global();
+            self::view(self::getTwig()->render('article/one.html', [
+                'post' => $post->readOne($id),
+                'comments' => $comments->findAllValidedByPost($id),
+                'auth' => $connect,
+                'global' => self::$global,
+            ]));
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
         }
-        self::global();
-        self::view(self::getTwig()->render('article/one.html', [
-            'post' => $post->readOne($id),
-            'comments' => $comments->findAllValidedByPost($id),
-            'auth' => $connect,
-            'global' => self::$global,
-        ]));
     }
 
     /**
@@ -84,6 +98,7 @@ class PostsController extends Controller
      */
     public static function update()
     {
+        try{
         $posts = new PostsManager;
         $controlled_array = self::Control_array();
         $post = $posts->readOne($controlled_array['id']);
@@ -91,6 +106,10 @@ class PostsController extends Controller
         $posts->update($post);
         $redir = 'location: /admin';
         return header($redir);
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
 
     /**
@@ -103,6 +122,7 @@ class PostsController extends Controller
      */
     public static function delete(int $id_post)
     {
+        try{
         $id_post = self::valid_data($id_post);
         $posts = new PostsManager;
         $comments = new CommentsManager;
@@ -114,5 +134,9 @@ class PostsController extends Controller
         $posts->delete($post);
         $redir = 'location: /admin';
         return header($redir);
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
 }

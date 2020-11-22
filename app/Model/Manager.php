@@ -18,9 +18,7 @@ abstract class Manager
             ]);
             return $bdd;
         } catch (PDOException $e) {
-            $affiche = new MessageController;
-            $affiche->message('impossible de se connecter à la base de données!!');
-            exit;
+            
         }
     }
 

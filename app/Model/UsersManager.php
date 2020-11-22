@@ -3,10 +3,20 @@
 namespace App\Model;
 
 use App\Model\Entity\userEntity;
+use Exception;
 
 class UsersManager extends Manager
 {
+    protected static $bdd;
 
+    function __construct()
+    {
+        $bdd = self::getPdo();
+        if (!isset($bdd)) {
+            throw new Exception("Impossible de se connecter à la base de données");
+        }
+        self::$bdd = $bdd;
+    }
 
     /**
      * create
@@ -18,7 +28,7 @@ class UsersManager extends Manager
     {
 
         $query = 'INSERT INTO user(username, email, password) VALUES (:username, :email, :password)';
-        $response = self::getPdo()->prepare($query);
+        $response =  self::$bdd->prepare($query);
 
         $response->execute([
             'username' => $user->username(),
@@ -41,7 +51,7 @@ class UsersManager extends Manager
     {
         if ($valided == 2 | $valided == 1) {
             $query = "SELECT * FROM user where valided=$valided";
-            $response = self::getPdo()->prepare($query);
+            $response =  self::$bdd->prepare($query);
             $response->execute();
 
             $allusers = $response->fetchAll();
@@ -62,7 +72,7 @@ class UsersManager extends Manager
     {
 
         $query = "SELECT * FROM user WHERE username= ?";
-        $response = self::getPdo()->prepare($query);
+        $response =  self::$bdd->prepare($query);
         $response->execute(array($username));
         $allusers = $response->fetchAll();
 
@@ -79,7 +89,7 @@ class UsersManager extends Manager
     {
 
         $query = "SELECT * FROM user order by id";
-        $response = self::getPdo()->prepare($query);
+        $response =  self::$bdd->prepare($query);
         $response->execute();
 
         $allusers = $response->fetchAll();
@@ -99,7 +109,7 @@ class UsersManager extends Manager
     public function readOne(int $id_user)
     {
         $query = "SELECT * FROM user WHERE id= ?";
-        $response = self::getPdo()->prepare($query);
+        $response =  self::$bdd->prepare($query);
         $response->execute(array($id_user));
         $data = $response->fetch();
         $user = new UserEntity($data);
@@ -115,7 +125,7 @@ class UsersManager extends Manager
     public function valided(userEntity $user)
     {
         $query = ("UPDATE user SET valided= '2' WHERE id = :id ");
-        $response = self::getPdo()->prepare($query);
+        $response =  self::$bdd->prepare($query);
         $response->execute([
             'id' => $user->id(),
 
@@ -131,7 +141,7 @@ class UsersManager extends Manager
     public function update(userEntity $user)
     {
         $query = ("UPDATE user SET username= :username, role= :role, email= :email WHERE id = :id ");
-        $response = self::getPdo()->prepare($query);
+        $response =  self::$bdd->prepare($query);
         $response->execute([
             'username' => $user->username(),
             'email' => $user->email(),
@@ -146,7 +156,7 @@ class UsersManager extends Manager
     public function delete(userEntity $user)
     {
         $query = "DELETE FROM user WHERE id= ?";
-        $response = self::getPdo()->prepare($query);
+        $response =  self::$bdd->prepare($query);
         $id = array($user->id());
         $response->execute($id);
     }

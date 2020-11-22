@@ -3,10 +3,20 @@
 namespace App\Model;
 
 use App\Model\Entity\commentEntity;
+use Exception;
 
 class CommentsManager extends Manager
 {
+    protected static $bdd;
 
+    function __construct()
+    {
+        $bdd = self::getPdo();
+        if (!isset($bdd)) {
+            throw new Exception("Impossible de se connecter à la base de données");
+        }
+        self::$bdd = $bdd;
+    }
     /**
      * Enregistre d'un comment 
      */
@@ -14,7 +24,7 @@ class CommentsManager extends Manager
     {
 
         $query = 'INSERT INTO comment( id_post, comment, id_user ) VALUES (:id_post, :comment, :id_user)';
-        $response = self::getPdo()->prepare($query);
+        $response = self::$bdd->prepare($query);
         $response->execute([
             'id_post' => $comment->id_post(),
             'comment' => $comment->comment(),
@@ -35,7 +45,7 @@ class CommentsManager extends Manager
             INNER JOIN user ON comment.id_user = user.id 
             INNER JOIN post ON comment.id_post = post.id
             where comment.valided=$valided";
-            $response = self::getPdo()->prepare($query);
+            $response = self::$bdd->prepare($query);
             $response->execute();
 
             $allcomments = $response->fetchAll();
@@ -52,7 +62,7 @@ class CommentsManager extends Manager
 
         $query = "SELECT comment.id, comment.id_user,comment.id_post, comment.comment, comment.valided, comment.date, user.username as author 
         FROM comment INNER JOIN user ON comment.id_user = user.id where comment.valided= '1' and id_post= ? ORDER BY comment.date DESC";
-        $response = self::getPdo()->prepare($query);
+        $response = self::$bdd->prepare($query);
         $response->execute(array($id_post));
 
         $allcomments = $response->fetchAll();
@@ -69,7 +79,7 @@ class CommentsManager extends Manager
 
         $query = "SELECT comment.id, comment.comment, user.username as author 
         FROM comment INNER JOIN user ON comment.id_user = user.id where id_post= ? ORDER BY comment.date DESC";
-        $response = self::getPdo()->prepare($query);
+        $response = self::$bdd->prepare($query);
         $response->execute(array($id_post));
 
         $allcomments = $response->fetchAll();
@@ -83,7 +93,7 @@ class CommentsManager extends Manager
     public function readOne(int $id_comment)
     {
         $query = "SELECT * FROM comment WHERE id= ?";
-        $response = self::getPdo()->prepare($query);
+        $response = self::$bdd->prepare($query);
         $response->execute(array($id_comment));
         $data = $response->fetch();
         $post = new CommentEntity($data);
@@ -95,7 +105,7 @@ class CommentsManager extends Manager
     public function update(CommentEntity $comment)
     {
         $query = ("UPDATE comment SET valided= '1' WHERE id = :id ");
-        $response = self::getPdo()->prepare($query);
+        $response = self::$bdd->prepare($query);
         $response->execute([
             'id' => $comment->id(),
 
@@ -108,7 +118,7 @@ class CommentsManager extends Manager
     public function delete(CommentEntity $comment)
     {
         $query = "DELETE FROM comment WHERE id= ?";
-        $response = self::getPdo()->prepare($query);
+        $response = self::$bdd->prepare($query);
         $id = array($comment->id());
         $response->execute($id);
     }

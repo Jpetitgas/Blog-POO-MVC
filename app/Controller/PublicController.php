@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Dompdf\Dompdf;
-
+use Exception;
 /**
  * PublicController
  * gere le page d'acceuil, la page accés interdit et la page 'à propos'
@@ -18,10 +18,15 @@ class PublicController extends Controller
      */
     public static function index()
     {
+        try{
         self::global();
         self::view (self::getTwig()->render('app/index.html', [
             'global' => self::$global,
         ]));
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
     public static function forbidden()
     {

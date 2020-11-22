@@ -6,7 +6,7 @@ use App\Controller\Controller;
 use App\Model\CommentsManager;
 use App\Model\PostsManager;
 use App\Model\UsersManager;
-
+use Exception;
 class AdminController extends Controller
 {
 
@@ -17,6 +17,7 @@ class AdminController extends Controller
      */
     public static function index()
     {
+        try{
         $posts = new PostsManager;
         $comments = new CommentsManager;
         $users = new UsersManager;
@@ -29,6 +30,10 @@ class AdminController extends Controller
             'users' => $users->findAll(1),
             'global' => self::$global,
         ]));
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
     /**
      * create
@@ -51,6 +56,7 @@ class AdminController extends Controller
      */
     public static function edit(int $id_post)
     {
+        try{
         $id_post = self::valid_data($id_post);
         $post = new PostsManager;
         self::global();
@@ -58,5 +64,9 @@ class AdminController extends Controller
             'post' => $post->readOne($id_post),
             'global' => self::$global,
         ]));
+    } catch (Exception$e){
+        $affiche = new MessageController; 
+        $affiche->message($e->getMessage());
+}
     }
 }
