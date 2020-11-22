@@ -59,14 +59,14 @@ class PostsManager extends Manager
      * @param  mixed $id
      * @return object
      */
-    public function readOne(int $id)
+    public function readOne(int $id_post)
     {
         $query = "SELECT post.id, post.title, post.chapo, post.content, post.author, post.date, post.date_maj, user.username as authoruser
         FROM post
         INNER JOIN user ON post.author = user.id  
         WHERE post.id= ?";
         $response = self::getPdo()->prepare($query);
-        $response->execute(array($id));
+        $response->execute(array($id_post));
         $data = $response->fetch();
         if (!$data) {
             header('location: /404');

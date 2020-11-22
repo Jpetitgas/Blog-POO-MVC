@@ -49,13 +49,13 @@ class AdminController extends Controller
      * @param  mixed $id
      * @return void
      */
-    public static function edit(int $id)
+    public static function edit(int $id_post)
     {
-        $id = self::valid_data($id);
+        $id_post = self::valid_data($id_post);
         $post = new PostsManager;
         self::global();
         self::view ( self::getTwig()->render('article/edit.html', [
-            'post' => $post->readOne($id),
+            'post' => $post->readOne($id_post),
             'global' => self::$global,
         ]));
     }

@@ -47,13 +47,13 @@ class CommentsManager extends Manager
     /**
      * Retourne la liste des comments  validés d'un post
      */
-    public function findAllValidedByPost(int $id)
+    public function findAllValidedByPost(int $id_post)
     {
 
         $query = "SELECT comment.id, comment.id_user,comment.id_post, comment.comment, comment.valided, comment.date, user.username as author 
         FROM comment INNER JOIN user ON comment.id_user = user.id where comment.valided= '1' and id_post= ? ORDER BY comment.date DESC";
         $response = self::getPdo()->prepare($query);
-        $response->execute(array($id));
+        $response->execute(array($id_post));
 
         $allcomments = $response->fetchAll();
 
@@ -64,13 +64,13 @@ class CommentsManager extends Manager
     /**
      * Retourne la liste des comments d'un post
      */
-    public function findAllByPost(int $id)
+    public function findAllByPost(int $id_post)
     {
 
         $query = "SELECT comment.id, comment.comment, user.username as author 
         FROM comment INNER JOIN user ON comment.id_user = user.id where id_post= ? ORDER BY comment.date DESC";
         $response = self::getPdo()->prepare($query);
-        $response->execute(array($id));
+        $response->execute(array($id_post));
 
         $allcomments = $response->fetchAll();
 
@@ -80,11 +80,11 @@ class CommentsManager extends Manager
     /**
      * Retourne un comment
      */
-    public function readOne(int $id)
+    public function readOne(int $id_comment)
     {
         $query = "SELECT * FROM comment WHERE id= ?";
         $response = self::getPdo()->prepare($query);
-        $response->execute(array($id));
+        $response->execute(array($id_comment));
         $data = $response->fetch();
         $post = new CommentEntity($data);
         return $post;
