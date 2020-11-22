@@ -2,29 +2,26 @@
 
 namespace App\Model;
 
-use Exception;
-use PDO;
 use PDOException;
+use PDO;
 
 abstract class Manager
 {
 
     public static function getPdo()
     {
-        try { 
-            return new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD, [
+        try {
+            $bdd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ]);
+            return $bdd;
+        } catch (PDOException $e) {
+            echo ('impossible de se connecter à la base de donnée');
+            die();
         }
-        catch(PDOException $e){
-           echo ('pb de connexion à la base!!');
-           die();
-        }
-        
     }
 
-        
     /**
      * arrayToObject
      * met les objets dans un tableau
@@ -42,7 +39,7 @@ abstract class Manager
             $dataAsObjects[] = $single;
         }
         return $dataAsObjects;
-    }    
+    }
     /**
      * getFormattedDateTime
      * met la date passée en parametre à l'heure de la france

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Model\CommentsManager;
 use App\Model\PostsManager;
 use App\Model\Entity\PostEntity;
+use Exception;
+use PDOException;
 
 /**
  * PostsController
@@ -13,7 +15,7 @@ use App\Model\Entity\PostEntity;
  */
 class PostsController extends Controller
 {
-    
+
     /**
      * record
      *enregistrer un nouveau post
@@ -28,7 +30,7 @@ class PostsController extends Controller
         $redir = 'location: /admin';
         return header($redir);
     }
-    
+
     /**
      * all
      *recherche tous les posts
@@ -37,13 +39,15 @@ class PostsController extends Controller
      */
     public static function all()
     {
-        $posts = new PostsManager;
-        self::global();
-        self::view ( self::getTwig()->render('article/all.html', [
-            'posts' => $posts->readAll(),
-            'global' => self::$global,
-        ]));
-    }    
+       
+            $posts = new PostsManager;
+            self::global();
+            self::view(self::getTwig()->render('article/all.html', [
+                'posts' => $posts->readAll(),
+                'global' => self::$global,
+            ]));
+        
+    }
     /**
      * one
      *
@@ -59,21 +63,21 @@ class PostsController extends Controller
         $id = self::valid_data($id);
         $comments = new CommentsManager;
         $session = new Session;
-        $auth=$session::get('auth');
+        $auth = $session::get('auth');
         if (isset($auth)) {
             $connect = true;
         } else {
             $connect = false;
         }
         self::global();
-        self::view ( self::getTwig()->render('article/one.html', [
+        self::view(self::getTwig()->render('article/one.html', [
             'post' => $post->readOne($id),
             'comments' => $comments->findAllValidedByPost($id),
             'auth' => $connect,
             'global' => self::$global,
         ]));
     }
-    
+
     /**
      * update
      *met à jour le post dont l'id est passé en $_POST
@@ -89,7 +93,7 @@ class PostsController extends Controller
         $redir = 'location: /admin';
         return header($redir);
     }
-    
+
     /**
      * delete
      * supprime le post dont l'id est passé en parametre et tous ses commentaires

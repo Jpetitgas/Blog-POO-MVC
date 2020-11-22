@@ -6,7 +6,7 @@ use App\Model\Entity\PostEntity;
 use App\Controller\Session;
 
 class PostsManager extends Manager
-{    
+{
     /**
      * create
      * Enregistre un article
@@ -31,7 +31,7 @@ class PostsManager extends Manager
         return true;
     }
 
-        
+
     /**
      * readAll
      * Retourne tous les articles
@@ -39,19 +39,20 @@ class PostsManager extends Manager
      */
     public function readAll()
     {
-
-        $query = "SELECT post.id, post.title, post.chapo, post.content, post.author, post.date, post.date_maj, user.username as authoruser
+        
+            $query = "SELECT post.id, post.title, post.chapo, post.content, post.author, post.date, post.date_maj, user.username as authoruser
         FROM post
         INNER JOIN user ON post.author = user.id 
         order by post.date_maj desc";
-        $response = self::getPdo()->prepare($query);
-        $response->execute();
-        $allposts = $response->fetchAll();
-        $objects = $this->arrayToObject($allposts, 'post');
-        return $objects;
+            $response = self::getPdo()->prepare($query);
+            $response->execute();
+            $allposts = $response->fetchAll();
+            $objects = $this->arrayToObject($allposts, 'post');
+            return $objects;
+        
     }
 
-        
+
     /**
      * readOne
      * Retourne un article en fonction de l'id passé en parametre
@@ -74,9 +75,9 @@ class PostsManager extends Manager
         $post = new PostEntity($data);
         return $post;
     }
-    
-    
-        
+
+
+
     /**
      * update
      * Met à jour un article
@@ -98,7 +99,7 @@ class PostsManager extends Manager
         ]);
     }
 
-       
+
     /**
      * delete
      *supprime un article

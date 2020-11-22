@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Model\UsersManager;
 use App\Model\Entity\UserEntity;
-
+use Exception;
 
 class UsersController extends Controller
 {
@@ -28,36 +28,35 @@ class UsersController extends Controller
      */
     public static function checkLogin()
     {
-        $users = new UsersManager();
-        $controlled_array = self::Control_array();
-        $user = $users->get($controlled_array['username']);
-        $session = new Session;
-        if (empty($user)) {
-            self::message("l'utilisateur n'existe pas");
-            die();
+        try {
+            $users = new UsersManager();
+            $controlled_array = self::Control_array();
+            $user = $users->get($controlled_array['username']);
+            $session = new Session;
+            if (empty($user)) {
+                throw new Exception("l'utilisateur n'existe pas");
+            }
+            if ($user[0]->valided() == 1) {
+                throw new Exception("Le compte n'est pas encore actif");
+            }
+            if ($user[0]->password() === sha1($controlled_array['password'])) {
+                $session::put('auth', $user[0]->id());
+                $session::put('role', $user[0]->role());
+                $session::put('user', $controlled_array['username']);
+            } else {
+                throw new Exception("Le mot de passe n'est pas correct");
+            }
+            if (isset($_COOKIE['undo'])) {
+                $undo = $_COOKIE['undo'];
+                $redir = 'location: ' . $undo;
+                return header($redir);
+            } else {
+                $redir = 'location: /';
+                return header($redir);
+            }
+        } catch (Exception $e) {
+            self::message($e->getMessage());
         }
-        if ($user[0]->valided() == 1) {
-            self::message("Le compte n'est pas encore actif");
-            die();
-        }
-        if ($user[0]->password() === sha1($controlled_array['password'])) {
-            $session::put('auth', $user[0]->id());
-            $session::put('role' ,$user[0]->role());
-            $session::put('user' , $controlled_array['username']);
-        } else {
-            self::message("Le mot de passe n'est pas correct");
-            die();
-        }
-        if (isset($_COOKIE['undo'])) {
-            $undo = $_COOKIE['undo'];
-            $redir = 'location: ' . $undo;
-            return header($redir);
-        } else {
-            $redir = 'location: /';
-            return header($redir);
-        }
-
-        
     }
 
     /**
@@ -106,7 +105,7 @@ class UsersController extends Controller
     {
         $controlled_array = self::Control_array();
         $controlled_array['password'] = sha1($controlled_array['password']);
-        
+
         $user = new UserEntity($controlled_array);
         $users = new UsersManager;
         $users->create($user);
@@ -126,13 +125,12 @@ class UsersController extends Controller
         $user = $users->readOne($id);
         $user->hydrate($controlled_array);
         $users->valided($user);
-        
-        
 
-        $message = "bonjour ". $user->Username() ." , votre compte a été validé!";
+
+
+        $message = "bonjour " . $user->Username() . " , votre compte a été validé!";
         self::sentMail($user->email(), "validation de votre compte", $message);
-        
-    }    
+    }
     /**
      * update
      * mise à jour de l'utilisateur
@@ -148,7 +146,7 @@ class UsersController extends Controller
         $users->update($user);
         $redir = 'location: /admin';
         return header($redir);
-    }    
+    }
     /**
      * delete
      * suppression de l'utilisateur dont id est passé en parametre
