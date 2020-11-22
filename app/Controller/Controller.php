@@ -89,12 +89,12 @@ abstract class Controller
             self::$global['username'] = $session::get('user');
             self::$global['userid'] = $session::get('auth');
             self::$global['role'] = $session::get('role');
-        } else {
+        } 
             self::$global['connect'] = 2;
             self::$global['username'] = "";
             self::$global['userid'] = "";
             self::$global['role'] = "";
-        }
+       
     }
 
     /**
@@ -107,13 +107,10 @@ abstract class Controller
      */
     protected static function sentMail($email, $subject, $message)
     {
-
-
-
         if (mail($email, $subject, $message)) {
-            echo $message = "Email envoyé avec succès";
+           $message = "Email envoyé avec succès";
         } else {
-            echo $message = "Échec de l'envoi de l'email...";
+            $message = "Échec de l'envoi de l'email...";
         }
         $affiche= new MessageController;
         $affiche->message($message);

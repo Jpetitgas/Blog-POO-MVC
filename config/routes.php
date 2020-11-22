@@ -18,11 +18,12 @@ $router->post('/form/sent', 'FormController@sent');
 
 
 //connexion
-$router->before('GET','/login', function () {
-    $undo=$_SERVER['HTTP_REFERER'];
-    setcookie('undo',$undo);
+$router->before('GET', '/login', function () {
+    $undo = $_SERVER['HTTP_REFERER'];
+    setcookie('undo', $undo);
 });
-$router->before('POST','/checklogin', function () { $undo=$_SERVER['HTTP_REFERER'];
+$router->before('POST', '/checklogin', function () {
+    $undo = $_SERVER['HTTP_REFERER'];
     //$_COOKIE['undo']='/';
 });
 
@@ -46,14 +47,14 @@ $router->post('/admin/users/(\d+)/update', 'UsersController@update');
 //admin
 $router->before('GET|POST', '/admin', function () {
     $session = new Session;
-    $a=$session::get('auth');
+    $a = $session::get('auth');
     if (!isset($a)) {
-          
+
         header('location: /login');
         exit();
     }
-    $b=$session::get('role');
-    if ($b === 1) {
+    $b = $session::get('role');
+    if ($b === "1") {
         header('location: /403');
         exit();
     }
