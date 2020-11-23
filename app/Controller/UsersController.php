@@ -60,7 +60,31 @@ class UsersController extends Controller
             $affiche->message($e->getmessage());
         }
     }
-
+    public static function modification()
+    {
+        try {
+            $users = new UsersManager();
+            $controlled_array = self::Control_array();
+            $user = $users->readOne($controlled_array['id']);
+            $session = new Session;
+            if (empty($user)) {
+                throw new Exception("l'utilisateur n'existe pas");
+            }
+            if ($user->password() === sha1($controlled_array['oldpassword'])) {
+                $user->setPassword(sha1($controlled_array['newpassword']));
+                $users->updatepw($user);
+            } else {
+                throw new Exception("Le mot de passe n'est pas correct");
+            }
+            $affiche = new MessageController;
+            $affiche->message('Votre mot de passe est modifié');
+            
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getmessage());
+        }
+    }
+    
     /**
      * unlogged
      *fonction de deconnection et de suppression des variable session
@@ -72,8 +96,9 @@ class UsersController extends Controller
         if (isset($_SERVER['HTTP_REFERER'])) {
             $undo = $_SERVER['HTTP_REFERER'];
         }
-        $redir = 'location: ' . $undo;
-        return header($redir);
+        $affiche = new MessageController;
+            $affiche->message('Vous etes deconnecté');
+        
     }
 
     /**
@@ -98,6 +123,13 @@ class UsersController extends Controller
     public static function registration()
     {
         echo self::getTwig()->render('app/registration.html');
+    }
+    public static function change()
+    {
+        self::global();
+        echo self::getTwig()->render('app/change.html', [
+            'global' => self::$global,
+        ]);
     }
 
     /**

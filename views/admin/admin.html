@@ -119,7 +119,7 @@
                         <td style="text-align:center"><a class="btn btn-primary"
                                 href="{{ base_path ~ 'admin/users/' ~ user.id ~ '/edit'}}"><i class='fas fa-edit'></i></a></td>
                         <td style="text-align:center">
-                            <form action="{{ base_path ~ 'admin/users/' ~ user.id~'/delete/'}}" method="post">
+                            <form action="{{ base_path ~ 'admin/users/' ~ user.id~'/delete/'~ global.token}}" method="post">
                                 <input type="hidden" value="{{ user.id }}" name="id">
                                 <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                             </form>

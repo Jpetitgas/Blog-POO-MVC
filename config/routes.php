@@ -26,8 +26,8 @@ $router->before('GET', '/login', function () {
 });
 
 $router->before('POST', '/checklogin', function () {
-    $undo = $_SERVER['HTTP_REFERER'];
-    //$_COOKIE['undo']='/';
+    //$undo = $_SERVER['HTTP_REFERER'];
+    $_COOKIE['undo']='/';
 });
 
 $router->get('/login', 'UsersController@login');
@@ -36,6 +36,9 @@ $router->get('/unlocked', 'UsersController@unlogged');
 
 $router->get('/registration', 'UsersController@registration');
 $router->post('/validation', 'UsersController@validation');
+
+$router->get('/change', 'UsersController@change');
+$router->post('/modification', 'UsersController@modification');
 
 $router->get('/articles', 'PostsController@all');
 $router->get('/articles/(\d+)', 'PostsController@one');
@@ -57,7 +60,7 @@ $router->before('GET|POST', '/admin(/[^/]+)?(/[^/]+)?(/[^/]+)?', function () {
         exit();
     }
     $b = $session::get('role');
-    if ($b === "0") {
+    if ($b === "1") {
         header('location: /403');
         exit();
     }

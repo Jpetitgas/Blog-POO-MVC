@@ -87,7 +87,6 @@ class UsersManager extends Manager
      */
     public function readAll()
     {
-
         $query = "SELECT * FROM user order by id";
         $response =  self::$bdd->prepare($query);
         $response->execute();
@@ -97,9 +96,6 @@ class UsersManager extends Manager
         $objects = $this->arrayToObject($allusers, 'user');
         return $objects;
     }
-
-
-
     /**
      * readOne
      * Retourne un user en fonction de l'id passé
@@ -128,7 +124,6 @@ class UsersManager extends Manager
         $response =  self::$bdd->prepare($query);
         $response->execute([
             'id' => $user->id(),
-
         ]);
     }
 
@@ -150,6 +145,18 @@ class UsersManager extends Manager
 
         ]);
     }
+
+    public function updatepw(userEntity $user)
+    {
+        $query = ("UPDATE user SET password= :password WHERE id = :id ");
+        $response =  self::$bdd->prepare($query);
+       
+        $response->execute([
+            'password' => $user->password(),
+            'id' => $user->id(),
+        ]);
+    }
+
     /** 
      *supprime un utilisateur
      */

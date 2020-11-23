@@ -34,10 +34,6 @@ class UserEntity extends Entity{
 
   public function setPassword($password)
   {
-    if (!is_string($password) || empty($password))
-    {
-      
-    }
     $this->password = $password;
   }
 

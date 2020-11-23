@@ -7,13 +7,13 @@
 
 {% if global.connect == 1 %}
 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-        href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a></li>
-        {% block username %}
-        <li class="nav-item mx-lg-1 row align-items-center text-success">bonjour, {{ global.username }}</li>
-        {% endblock username %}
+    href="{{ base_path ~ 'unlocked' }}">Se deconnecter</a></li>
+{% block username %}
+<li class="nav-item mx-lg-1 row align-items-center text-success"><a href="{{ base_path ~ 'change' }}">bonjour, {{ global.username }}</a></li>
+{% endblock username %}
 {% else %}
 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-        href="{{ base_path ~ 'login' }}">Se connecter</a></li>
+    href="{{ base_path ~ 'login' }}">Se connecter</a></li>
 {% endif %}
 {% endblock menu %}
 
