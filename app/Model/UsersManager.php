@@ -49,7 +49,7 @@ class UsersManager extends Manager
      */
     public function findAll(int $valided)
     {
-        if ($valided == 2 | $valided == 1) {
+        if ($valided == 1 | $valided == 0) {
             $query = "SELECT * FROM user where valided=$valided";
             $response =  self::$bdd->prepare($query);
             $response->execute();
@@ -124,7 +124,7 @@ class UsersManager extends Manager
      */
     public function valided(userEntity $user)
     {
-        $query = ("UPDATE user SET valided= '2' WHERE id = :id ");
+        $query = ("UPDATE user SET valided= '1' WHERE id = :id ");
         $response =  self::$bdd->prepare($query);
         $response->execute([
             'id' => $user->id(),

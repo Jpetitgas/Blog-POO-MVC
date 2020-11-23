@@ -26,8 +26,8 @@ class AdminController extends Controller
         self::view (self::getTwig()->render('admin/admin.html', [
             'posts' => $posts->readAll(),
             'comments' => $comments->findAll(0),
-            'allusers' => $users->findAll(2),
-            'users' => $users->findAll(1),
+            'allusers' => $users->findAll(1),
+            'users' => $users->findAll(0),
             'global' => self::$global,
         ]));
     } catch (Exception$e){

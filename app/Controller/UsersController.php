@@ -106,14 +106,24 @@ class UsersController extends Controller
      */
     public static function validation()
     {
+        try{
         $controlled_array = self::Control_array();
         $controlled_array['password'] = sha1($controlled_array['password']);
-
-        $user = new UserEntity($controlled_array);
         $users = new UsersManager;
+        //verification de la non existance du nom d'utilisateur
+        
+        if (!empty($users->get($controlled_array['username']))){
+            throw new Exception("Ce nom d'utilisateur existe déjà");
+        }
+        $user = new UserEntity($controlled_array);
+        
         $users->create($user);
         $redir = 'location: /admin';
         return header($redir);
+    } catch (Exception $e) {
+        $affiche = new MessageController;
+        $affiche->message($e->getmessage());
+    }
     }
     /**
      * valided
