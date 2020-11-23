@@ -2,7 +2,7 @@
 {% block title %}Créer un compte{% endblock title %}
 {% block content %}
 
-<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Création d'un compten</h2>
+<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Création d'un compt</h2>
 
 <div class="divider-custom">
     <div class="divider-custom-line"></div>
@@ -12,10 +12,10 @@
 <form action="{{ base_path ~ 'validation'}}" method="post">
     <div class="d-flex align-items-center flex-column">
         <div class="p-2">
-            <input class="form-control" type="text" placeholder="Votre identiant" name="username" required>
+            <input class="form-control" type="text" placeholder="Votre identiant" minlength="6" name="username" required>
         </div>
         <div class="p-2">
-            <input class="form-control" type="password" placeholder="Votre mot de passe" name="password" required>
+            <input class="form-control" type="password" placeholder="Votre mot de passe" minlength="8" name="password" required>
         </div>
         <div class="p-2">
             <input class="form-control" type="email" placeholder="Votre adresse email" name="email" required>
@@ -28,5 +28,6 @@
         </div>
     </div>
 </form>
+<center><p>( NB: Pour supprimer votre compte, merci d'en faire la demande à l'aide du formulaire de contact)</p>   </center>
 {% endblock %}
 

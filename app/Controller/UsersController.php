@@ -36,7 +36,7 @@ class UsersController extends Controller
             self::message("l'utilisateur n'existe pas");
             die();
         }
-        if ($user[0]->valided() == 1) {
+        if ($user[0]->valided() == 0) {
             self::message("Le compte n'est pas encore actif");
             die();
         }
@@ -104,10 +104,15 @@ class UsersController extends Controller
      */
     public static function validation()
     {
-        $_POST['password'] = sha1($_POST['password']);
         $controlled_array = self::Control_array($_POST);
-        $user = new UserEntity($controlled_array);
         $users = new UsersManager;
+        //verification de la non existance du nom d'utilisateur
+        $usernamechosed= $users->get($controlled_array['username']);
+        if (!empty($usernamechosed)){
+            echo'yes';
+        }
+        $user = new UserEntity($controlled_array);
+        $controlled_array['password'] = sha1($controlled_array['password']);
         $users->create($user);
         $redir = 'location: /admin';
         return header($redir);
