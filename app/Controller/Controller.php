@@ -66,9 +66,14 @@ abstract class Controller
      */
     protected static function valid_data($data)
     {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
+        if (isset($data)) {
+            $data = trim($data);
+            $data = strip_tags($data);
+            
+        } else {
+            throw new Exception('tous les champs doivent etre remplis');
+        }
+
         return $data;
     }
 
@@ -89,11 +94,13 @@ abstract class Controller
             self::$global['username'] = $session::get('user');
             self::$global['userid'] = $session::get('auth');
             self::$global['role'] = $session::get('role');
-        } else{
+            self::$global['token'] = $session::get('token');
+        } else {
             self::$global['connect'] = 2;
             self::$global['username'] = "";
             self::$global['userid'] = "";
             self::$global['role'] = "";
+            self::$global['token'] = "";
         }
     }
 
@@ -108,13 +115,11 @@ abstract class Controller
     protected static function sentMail($email, $subject, $message)
     {
         if (mail($email, $subject, $message)) {
-           $message = "Email envoyé avec succès";
+            $message = "Email envoyé avec succès";
         } else {
             $message = "Échec de l'envoi de l'email...";
         }
-        $affiche= new MessageController;
+        $affiche = new MessageController;
         $affiche->message($message);
     }
-
-   
 }

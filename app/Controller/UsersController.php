@@ -36,13 +36,14 @@ class UsersController extends Controller
             if (empty($user)) {
                 throw new Exception("l'utilisateur n'existe pas");
             }
-            if ($user[0]->valided() == 1) {
+            if ($user[0]->valided() == 0) {
                 throw new Exception("Le compte n'est pas encore actif");
             }
             if ($user[0]->password() === sha1($controlled_array['password'])) {
                 $session::put('auth', $user[0]->id());
                 $session::put('role', $user[0]->role());
                 $session::put('user', $controlled_array['username']);
+                $session::put('token', bin2hex(openssl_random_pseudo_bytes(6)));
             } else {
                 throw new Exception("Le mot de passe n'est pas correct");
             }
@@ -106,24 +107,24 @@ class UsersController extends Controller
      */
     public static function validation()
     {
-        try{
-        $controlled_array = self::Control_array();
-        $controlled_array['password'] = sha1($controlled_array['password']);
-        $users = new UsersManager;
-        //verification de la non existance du nom d'utilisateur
-        
-        if (!empty($users->get($controlled_array['username']))){
-            throw new Exception("Ce nom d'utilisateur existe déjà");
+        try {
+            $controlled_array = self::Control_array();
+            $controlled_array['password'] = sha1($controlled_array['password']);
+            $users = new UsersManager;
+            //verification de la non existance du nom d'utilisateur
+
+            if (!empty($users->get($controlled_array['username']))) {
+                throw new Exception("Ce nom d'utilisateur existe déjà");
+            }
+            $user = new UserEntity($controlled_array);
+
+            $users->create($user);
+            $redir = 'location: /admin';
+            return header($redir);
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getmessage());
         }
-        $user = new UserEntity($controlled_array);
-        
-        $users->create($user);
-        $redir = 'location: /admin';
-        return header($redir);
-    } catch (Exception $e) {
-        $affiche = new MessageController;
-        $affiche->message($e->getmessage());
-    }
     }
     /**
      * valided
@@ -165,14 +166,22 @@ class UsersController extends Controller
      * suppression de l'utilisateur dont id est passé en parametre
      * @return void
      */
-    public static function delete()
+    public static function delete(int $id_user, $token)
     {
-        $controlled_array = self::Control_array();
-        $users = new UsersManager;
-        $id = self::valid_data($controlled_array['id']);
-        $user = $users->readOne($id);
-        $users->delete($user);
-        $redir = 'location: /admin';
-        return header($redir);
+        try {
+            $token = self::valid_data($token);
+            if (!(isset($token) && ($token == $_SESSION['token']))) {
+                throw new Exception('Token de session invalide');
+            }
+            $id_user = self::valid_data($id_user);
+            $users = new UsersManager;
+            $user = $users->readOne($id_user);
+            $users->delete($user);
+            $redir = 'location: /admin';
+            return header($redir);
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
+        }
     }
 }

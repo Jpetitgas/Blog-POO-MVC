@@ -98,18 +98,18 @@ class PostsController extends Controller
      */
     public static function update()
     {
-        try{
-        $posts = new PostsManager;
-        $controlled_array = self::Control_array();
-        $post = $posts->readOne($controlled_array['id']);
-        $post->hydrate($controlled_array);
-        $posts->update($post);
-        $redir = 'location: /admin';
-        return header($redir);
-    } catch (Exception$e){
-        $affiche = new MessageController; 
-        $affiche->message($e->getMessage());
-}
+        try {
+            $posts = new PostsManager;
+            $controlled_array = self::Control_array();
+            $post = $posts->readOne($controlled_array['id']);
+            $post->hydrate($controlled_array);
+            $posts->update($post);
+            $redir = 'location: /admin';
+            return header($redir);
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
+        }
     }
 
     /**
@@ -120,23 +120,27 @@ class PostsController extends Controller
      * @param  mixed $id
      * @return 
      */
-    public static function delete(int $id_post)
+    public static function delete(int $id_post, $token)
     {
-        try{
-        $id_post = self::valid_data($id_post);
-        $posts = new PostsManager;
-        $comments = new CommentsManager;
-        $commentsOfPost = $comments->findAllByPost($id_post);
-        foreach ($commentsOfPost as $comment) {
-            $comments->delete($comment);
+        try {
+            $token = self::valid_data($token);
+            if (!(isset($token) && ($token == $_SESSION['token']))) {
+                throw new Exception('Token de session invalide');
+            } 
+            $id_post = self::valid_data($id_post);
+            $posts = new PostsManager;
+            $comments = new CommentsManager;
+            $commentsOfPost = $comments->findAllByPost($id_post);
+            foreach ($commentsOfPost as $comment) {
+                $comments->delete($comment);
+            }
+            $post = $posts->readOne($id_post);
+            $posts->delete($post);
+            $redir = 'location: /admin';
+            return header($redir);
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
         }
-        $post = $posts->readOne($id_post);
-        $posts->delete($post);
-        $redir = 'location: /admin';
-        return header($redir);
-    } catch (Exception$e){
-        $affiche = new MessageController; 
-        $affiche->message($e->getMessage());
-}
     }
 }
