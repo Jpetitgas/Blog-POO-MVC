@@ -20,9 +20,9 @@ class MessageController extends Controller
     {
 
         self::global();
-        self::view(self::getTwig()->render('app/message.html', [
+        echo self::getTwig()->render('app/message.html', [
             'message' => $message,
             'global' => self::$global,
-        ]));
+        ]);
     }
 }

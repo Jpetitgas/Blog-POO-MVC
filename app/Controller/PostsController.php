@@ -47,10 +47,10 @@ class PostsController extends Controller
         try {
             $posts = new PostsManager;
             self::global();
-            self::view(self::getTwig()->render('article/all.html', [
+            echo self::getTwig()->render('article/all.html', [
                 'posts' => $posts->readAll(),
                 'global' => self::$global,
-            ]));
+            ]);
         } catch (Exception $e) {
             $affiche = new MessageController;
             $affiche->message($e->getMessage());
@@ -79,12 +79,12 @@ class PostsController extends Controller
                 $connect = false;
             }
             self::global();
-            self::view(self::getTwig()->render('article/one.html', [
+            echo self::getTwig()->render('article/one.html', [
                 'post' => $post->readOne($id),
                 'comments' => $comments->findAllValidedByPost($id),
                 'auth' => $connect,
                 'global' => self::$global,
-            ]));
+            ]);
         } catch (Exception $e) {
             $affiche = new MessageController;
             $affiche->message($e->getMessage());

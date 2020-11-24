@@ -68,7 +68,7 @@ class UsersManager extends Manager
      * @param  mixed $username
      * @return array
      */
-    public function get($username)
+    public function get(string $username)
     {
 
         $query = "SELECT * FROM user WHERE username= ?";

@@ -20,9 +20,9 @@ class PublicController extends Controller
     {
         try{
         self::global();
-        self::view (self::getTwig()->render('app/index.html', [
+        echo self::getTwig()->render('app/index.html', [
             'global' => self::$global,
-        ]));
+        ]);
     } catch (Exception$e){
         $affiche = new MessageController; 
         $affiche->message($e->getMessage());
@@ -30,7 +30,7 @@ class PublicController extends Controller
     }
     public static function forbidden()
     {
-        self::view (self::getTwig()->render('app/403.html'));
+        echo self::getTwig()->render('app/403.html');
     }
 
     /**

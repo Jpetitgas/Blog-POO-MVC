@@ -9,7 +9,7 @@ use App\controller\MessageController;
 abstract class Manager
 {
 
-    public static function getPdo()
+    protected static function getPdo()
     {
         try {
             $bdd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD, [

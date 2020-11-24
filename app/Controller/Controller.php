@@ -21,12 +21,7 @@ abstract class Controller
 
         return $twig;
     }
-
-    public static function view($view)
-    {
-        echo $view;
-    }
-
+    
     /**
      * Control_array
      *

@@ -87,6 +87,19 @@ class CommentsManager extends Manager
         $objects = $this->arrayToObject($allcomments, 'comment');
         return $objects;
     }
+    public function findAllByuser(int $id_user)
+    {
+
+        $query = "SELECT comment.id, comment.comment, user.username as author ,comment.id_user
+        FROM comment INNER JOIN user ON comment.id_user = user.id where comment.id_user= ?";
+        $response = self::$bdd->prepare($query);
+        $response->execute(array($id_user));
+
+        $allcomments = $response->fetchAll();
+
+        $objects = $this->arrayToObject($allcomments, 'comment');
+        return $objects;
+    }
     /**
      * Retourne un comment
      */

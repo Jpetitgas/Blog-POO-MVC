@@ -5,11 +5,10 @@ namespace App\Controller;
 use App\Model\UsersManager;
 use App\Model\Entity\UserEntity;
 use Exception;
+use App\Model\CommentsManager;
 
 class UsersController extends Controller
 {
-
-
     /**
      * login
      *genere le formulaire de connection
@@ -78,13 +77,12 @@ class UsersController extends Controller
             }
             $affiche = new MessageController;
             $affiche->message('Votre mot de passe est modifié');
-            
         } catch (Exception $e) {
             $affiche = new MessageController;
             $affiche->message($e->getmessage());
         }
     }
-    
+
     /**
      * unlogged
      *fonction de deconnection et de suppression des variable session
@@ -97,8 +95,7 @@ class UsersController extends Controller
             $undo = $_SERVER['HTTP_REFERER'];
         }
         $affiche = new MessageController;
-            $affiche->message('Vous etes deconnecté');
-        
+        $affiche->message('Vous etes deconnecté');
     }
 
     /**
@@ -171,9 +168,6 @@ class UsersController extends Controller
         $user = $users->readOne($id);
         $user->hydrate($controlled_array);
         $users->valided($user);
-
-
-
         $message = "bonjour " . $user->Username() . " , votre compte a été validé!";
         self::sentMail($user->email(), "validation de votre compte", $message);
     }
@@ -204,6 +198,11 @@ class UsersController extends Controller
             $token = self::valid_data($token);
             if (!(isset($token) && ($token == $_SESSION['token']))) {
                 throw new Exception('Token de session invalide');
+            }
+            $comments = new CommentsManager;
+            $commentsOfuser = $comments->findAllByuser($id_user);
+            foreach ($commentsOfuser as $comment) {
+                $comments->delete($comment);
             }
             $id_user = self::valid_data($id_user);
             $users = new UsersManager;

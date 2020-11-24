@@ -23,13 +23,13 @@ class AdminController extends Controller
         $users = new UsersManager;
         self::global();
 
-        self::view (self::getTwig()->render('admin/admin.html', [
+         echo self::getTwig()->render('admin/admin.html', [
             'posts' => $posts->readAll(),
             'comments' => $comments->findAll(0),
             'allusers' => $users->findAll(1),
             'users' => $users->findAll(0),
             'global' => self::$global,
-        ]));
+        ]);
     } catch (Exception$e){
         $affiche = new MessageController; 
         $affiche->message($e->getMessage());
@@ -43,9 +43,9 @@ class AdminController extends Controller
     public static function create()
     {
         self::global();
-        self::view (self::getTwig()->render('article/create.html', [
+        echo self::getTwig()->render('article/create.html', [
             'global' => self::$global,
-        ]));
+        ]);
     }
 
     /**
@@ -60,10 +60,10 @@ class AdminController extends Controller
         $id_post = self::valid_data($id_post);
         $post = new PostsManager;
         self::global();
-        self::view ( self::getTwig()->render('article/edit.html', [
+        echo self::getTwig()->render('article/edit.html', [
             'post' => $post->readOne($id_post),
             'global' => self::$global,
-        ]));
+        ]);
     } catch (Exception$e){
         $affiche = new MessageController; 
         $affiche->message($e->getMessage());

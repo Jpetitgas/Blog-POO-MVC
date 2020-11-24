@@ -2,7 +2,7 @@
 
 namespace App\Model\Entity;
  
-abstract class Entity {
+class Entity {
   
   protected $id;
  
@@ -12,9 +12,9 @@ abstract class Entity {
     return $this->id;
   }
  
-  public function setId($id)
+  public function setId(int $id)
   {
-    $this->id = (int) $id;
+    $this->id = $id;
   }
    
   /**
