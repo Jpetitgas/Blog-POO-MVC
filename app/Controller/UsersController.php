@@ -65,7 +65,7 @@ class UsersController extends Controller
             $users = new UsersManager();
             $controlled_array = self::Control_array();
             $user = $users->readOne($controlled_array['id']);
-            $session = new Session;
+            
             if (empty($user)) {
                 throw new Exception("l'utilisateur n'existe pas");
             }
@@ -91,9 +91,7 @@ class UsersController extends Controller
     public static function unlogged()
     {
         session_unset();
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            $undo = $_SERVER['HTTP_REFERER'];
-        }
+       
         $affiche = new MessageController;
         $affiche->message('Vous etes deconnecté');
     }
@@ -195,6 +193,7 @@ class UsersController extends Controller
     public static function delete(int $id_user, $token)
     {
         try {
+            $id_user = self::valid_data($id_user);
             $token = self::valid_data($token);
             if (!(isset($token) && ($token == $_SESSION['token']))) {
                 throw new Exception('Token de session invalide');
@@ -204,7 +203,7 @@ class UsersController extends Controller
             foreach ($commentsOfuser as $comment) {
                 $comments->delete($comment);
             }
-            $id_user = self::valid_data($id_user);
+            
             $users = new UsersManager;
             $user = $users->readOne($id_user);
             $users->delete($user);
