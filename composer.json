@@ -1,7 +1,6 @@
 {
     "require": {
         "bramus/router": "^1.4",
-        "symfony/var-dumper": "^3.4",
         "twig/twig": "3.0",
         "dompdf/dompdf": "^0.8.6"
     },

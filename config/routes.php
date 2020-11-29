@@ -20,14 +20,11 @@ $router->post('/form/sent', 'FormController@sent');
 //connexion
 $router->before('GET', '/login', function () {
     if (isset($_SERVER['HTTP_REFERER'])){
-    $undo = $_SERVER['HTTP_REFERER'];
+        if (strpos($_SERVER['HTTP_REFERER'],"articles")){
+            $undo = $_SERVER['HTTP_REFERER'];
+        } else {$undo='/';}
     setcookie('undo', $undo);
     }
-});
-
-$router->before('POST', '/checklogin', function () {
-    //$undo = $_SERVER['HTTP_REFERER'];
-    $_COOKIE['undo']='/';
 });
 
 $router->get('/login', 'UsersController@login');

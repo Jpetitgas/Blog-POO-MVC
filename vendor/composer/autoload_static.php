@@ -7,9 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
 {
     public static $files = array (
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -21,7 +20,6 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
-            'Symfony\\Component\\VarDumper\\' => 28,
             'Svg\\' => 4,
         ),
         'F' => 
@@ -50,10 +48,6 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
-        ),
-        'Symfony\\Component\\VarDumper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
         'Svg\\' => 
         array (
@@ -95,8 +89,10 @@ class ComposerStaticInit831fa5261843c3ba6e3b1fad22610a0b
         'App\\Controller\\CommentsController' => __DIR__ . '/../..' . '/app/Controller/CommentsController.php',
         'App\\Controller\\Controller' => __DIR__ . '/../..' . '/app/Controller/Controller.php',
         'App\\Controller\\FormController' => __DIR__ . '/../..' . '/app/Controller/FormController.php',
+        'App\\Controller\\MessageController' => __DIR__ . '/../..' . '/app/Controller/MessageController.php',
         'App\\Controller\\PostsController' => __DIR__ . '/../..' . '/app/Controller/PostsController.php',
         'App\\Controller\\PublicController' => __DIR__ . '/../..' . '/app/Controller/PublicController.php',
+        'App\\Controller\\Session' => __DIR__ . '/../..' . '/app/Controller/Session.php',
         'App\\Controller\\UsersController' => __DIR__ . '/../..' . '/app/Controller/UsersController.php',
         'App\\Model\\CommentsManager' => __DIR__ . '/../..' . '/app/Model/CommentsManager.php',
         'App\\Model\\Entity\\CommentEntity' => __DIR__ . '/../..' . '/app/Model/Entity/CommentEntity.php',

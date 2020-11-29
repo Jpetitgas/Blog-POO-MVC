@@ -65,7 +65,7 @@ class UsersController extends Controller
             $users = new UsersManager();
             $controlled_array = self::Control_array();
             $user = $users->readOne($controlled_array['id']);
-            
+
             if (empty($user)) {
                 throw new Exception("l'utilisateur n'existe pas");
             }
@@ -91,7 +91,7 @@ class UsersController extends Controller
     public static function unlogged()
     {
         session_unset();
-       
+
         $affiche = new MessageController;
         $affiche->message('Vous etes deconnecté');
     }
@@ -203,7 +203,7 @@ class UsersController extends Controller
             foreach ($commentsOfuser as $comment) {
                 $comments->delete($comment);
             }
-            
+
             $users = new UsersManager;
             $user = $users->readOne($id_user);
             $users->delete($user);

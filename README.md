@@ -1,17 +1,23 @@
 # Blog-POO-MVC
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/626f7f7fa34c4344967a1d2d6eacd11d)](https://www.codacy.com/gh/Jpetitgas/Blog-POO-MVC/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Jpetitgas/Blog-POO-MVC&amp;utm_campaign=Badge_Grade)
 
-##Cloner le repository
-En ligne de commande dans le dossier désiré, saisir la commande git clone [NOM_DU_REPO] [NOM_DU_DOSSIER]
-Installer la BDD exemple contenu dans le dossier doc/
-Configurer les dossiers de config en éditant et renomant les fichiers config.default.ini (pour la database) en config.ini et config-mail.default.php (pour les mails) en config-mail.php
-Installation des dépendances front (attention, assurez vous d'avoir nodejs et NPM installé avec les commandes node -v et npm -v, sinon se rendre sur le site officiel et les installer)
-npm install => installer les dépendances
-npm start => démarre le serveur localhost
-Installation des dépendances back (attention, assurez vous d'avoir composer installé avec la commande composer -v, sinon se rendre sur le site officiel et suivre les instructions pour installer Composer)
-composer install => installer les dépendances PHP
-Se rendre sur votre serveur localhost pour voir le projet
-###Accès à l'administration du blog sur la BDD exemple
+the website is online : www.blogpeje0416.odns.fr
 
-Login : demo2020
-Password : demo2020
+This project respect :
+PHP Standards Recommendations
+object-oriented, respect for the principle of encapsulation ( entities, hydration of objects coming from the database, one class per table)
+custom pages for errors
+inherited templates
+security: XSS, CRSF, SQL injection, php script upload
+
+To use the project:
+create a database on your server
+import the sql file located /sql/blog.sql in your server
+clone the directory on your server
+adapt the /config/config.php file to your configuration :
+<?php
+const MAIL="yourmail@mail.com";
+const BASE_PATH = "pathtoyourdirectory"; // exemple : http:/blog/
+const DB_DSN = 'mysql:dbname=yourdatabasename;host=pathtoyourdatabase';
+const DB_USERNAME = 'yourusername';
+const DB_PASSWORD = 'yourpassword';
