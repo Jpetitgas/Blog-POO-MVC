@@ -1,6 +1,6 @@
 <?php
 const MAIL="yourmail@mail.com";
-const BASE_PATH = "pathtoyourdirectory";
-const DB_DSN = 'mysql:dbname=yourdatabasename;host=pathtoyourdatabase';
-const DB_USERNAME = 'yourusername';
-const DB_PASSWORD = 'yourpassword';
+const BASE_PATH = "http://blog/";
+const DB_DSN = 'mysql:dbname=blog;host=localhost';
+const DB_USERNAME = 'root';
+const DB_PASSWORD = '';
