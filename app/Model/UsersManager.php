@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\Model\Entity\userEntity;
+use App\Model\Entity\UserEntity;
 use Exception;
 
 class UsersManager extends Manager

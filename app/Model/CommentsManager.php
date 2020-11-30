@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\Model\Entity\commentEntity;
+use App\Model\Entity\CommentEntity;
 use Exception;
 
 class CommentsManager extends Manager
