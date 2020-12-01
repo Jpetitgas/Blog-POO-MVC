@@ -36,11 +36,23 @@
                 <form action="{{ base_path ~ '/admin/articles/'~ post.id~'/update'}}" method="post">
                         <div class="form-group">
                                 <input type="hidden" value="{{ post.id }}" name="id">
+                                <label class="text-center text-uppercase text-secondary mb-0">Auteur</label>
                                 <input type="textarea" class="form-control" value="{{ post.title }}" name="title">
+                                <label class="text-center text-uppercase text-secondary mb-0">Chapo</label>
                                 <textarea class="form-control" rows="3" name="chapo">{{ post.chapo }}</textarea>
+                                <label class="text-center text-uppercase text-secondary mb-0">Contenu</label>
                                 <textarea class="form-control" rows="10" id="content"
-                                        name="content">{{ post.content }}></textarea>
-
+                                        name="content">{{ post.content }}</textarea>
+                                <label class="text-center text-uppercase text-secondary mb-0">Auteur</label>
+                                <select class="form-control" name="author">
+                                {% for user in users %}        
+                                        {% if user.id == post.author %}
+                                        <option value={{user.id}} selected>{{user.username}}</option>
+                                        {% else %}
+                                        <option value={{user.id}}>{{user.username}}</option>
+                                        {% endif %}
+                                {% endfor %}
+                                </select>
                         </div>
                         <button class="btn btn-success">Envoyer</button>
                         <a href="{{ base_path ~ '/admin'}}"> retour</a>

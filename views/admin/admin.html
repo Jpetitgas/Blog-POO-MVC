@@ -51,7 +51,7 @@
                             <td style="text-align:center">
                                 <form action="{{ base_path ~ 'admin/articles/' ~ post.id~'/delete/'~ global.token}}" method="post">
                                     <input type="hidden" value="{{ post.id }}" name="id">
-                                    <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet article?')"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -91,7 +91,7 @@
                                     <form action="{{ base_path ~ 'admin/comments/' ~ comment.id~'/delete/'~ global.token}}"
                                         method="post">
                                         <input type="hidden" value="{{ comment.id }}" name="id">
-                                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce commentaire?')"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -121,11 +121,11 @@
                         <td style="text-align:center">
                             <form action="{{ base_path ~ 'admin/users/' ~ user.id~'/delete/'~ global.token}}" method="post">
                                 <input type="hidden" value="{{ user.id }}" name="id">
-                                <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>
-
+                    
                     {% endfor %}
                 </tbody>
                 </table>
@@ -153,11 +153,11 @@
                         <td style="text-align:center">
                             <form action="{{ base_path ~ 'admin/users/' ~ user.id~'/delete/'~ global.token}}" method="post">
                                 <input type="hidden" value="{{ user.id }}" name="id">
-                                <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')" ><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>
-
+                    
                     {% endfor %}
                 </tbody>
                 </table>

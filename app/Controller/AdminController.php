@@ -59,9 +59,11 @@ class AdminController extends Controller
         try{
         $id_post = self::valid_data($id_post);
         $post = new PostsManager;
+        $users= new UsersManager;
         self::global();
         echo self::getTwig()->render('article/edit.html', [
             'post' => $post->readOne($id_post),
+            'users' => $users->findAll(1),
             'global' => self::$global,
         ]);
     } catch (Exception$e){
@@ -69,4 +71,14 @@ class AdminController extends Controller
         $affiche->message($e->getMessage());
 }
     }
+
+
+
+
+
+
+
+
+
+    
 }

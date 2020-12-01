@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\Session;
+use App\Controller\MessageController;
 
 $router->setNamespace('App\Controller');
 
@@ -79,6 +80,6 @@ $router->post('/admin/comments/(\d+)/valided', 'CommentsController@valided');
 
 
 $router->set404(function () {
-    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-    echo '404, route not found!';
+    $affiche = new MessageController; 
+    $affiche->message('Cette page n\'existe pas!!');
 });

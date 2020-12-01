@@ -67,6 +67,7 @@ class PostsManager extends Manager
         $response->execute();
         $allposts = $response->fetchAll();
         $objects = $this->arrayToObject($allposts, 'post');
+        
         return $objects;
     }
 
@@ -110,7 +111,7 @@ class PostsManager extends Manager
             'title' => $post->title(),
             'chapo' => $post->chapo(),
             'content' => $post->content(),
-            'author' => $_SESSION['auth'],
+            'author' => $post->author(),
             'date_maj' => $this->getFormattedDateTime(),
             'id' => $post->id(),
 
