@@ -52,7 +52,11 @@
   <header class="masthead">
     {% block content %}{% endblock %}
   </header>
-
+  <div id="cookie" class="alert text-center alert-danger hidden" role="alert" style="visibility:hidden">
+    <p>Ce site utilise des cookies pour vous offrir le meilleur service. Acceptez-vous l’utilisation des cookies : </p>
+    <button id="valided" type="button" class="btn btn-primary btn-sm">OUI</button>
+   </div>
+   <button id="deleted" type="button" class="btn btn-primary btn-sm">effacer cookies</button>
 
 
   <!-- Footer-->
@@ -98,7 +102,7 @@
   <script src="js/scripts.js"></script>
   {% endblock js %}
 
- 
+  <script type="text/javascript" src = "../assets/js/band.js" ></script>
 
 </body>
 
