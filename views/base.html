@@ -15,11 +15,11 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
     type="text/css" />
-  
- 
+
+
   {% block css %}
   <link href="/css/styles.css" rel="stylesheet" />
-  
+
   {% endblock css %}
 </head>
 
@@ -52,11 +52,12 @@
   <header class="masthead">
     {% block content %}{% endblock %}
   </header>
+
   <div id="cookie" class="alert text-center alert-danger hidden" role="alert" style="visibility:hidden">
     <p>Ce site utilise des cookies pour vous offrir le meilleur service. Acceptez-vous l’utilisation des cookies : </p>
     <button id="valided" type="button" class="btn btn-primary btn-sm">OUI</button>
-   </div>
-   <button id="deleted" type="button" class="btn btn-primary btn-sm">effacer cookies</button>
+  </div>
+
 
 
   <!-- Footer-->
@@ -84,9 +85,11 @@
 
         <!-- Footer About Text-->
         <div class="col-lg-4">
+                   
           {% block admin %}
 
           {% endblock admin %}
+          <a class="navbar-brand js-scroll-trigger" href="{{ base_path ~ 'mentions' }}">Mentions légales</a>
         </div>
       </div>
     </div>
@@ -99,10 +102,10 @@
 
   <!-- Core theme JS-->
   {% block js %}
-  <script src="js/scripts.js"></script>
+
   {% endblock js %}
 
-  <script type="text/javascript" src = "../assets/js/band.js" ></script>
+  <script type="text/javascript" src="../assets/js/band.js"></script>
 
 </body>
 

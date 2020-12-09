@@ -121,7 +121,7 @@
                         <td style="text-align:center">
                             <form action="{{ base_path ~ 'admin/users/' ~ user.id~'/delete/'~ global.token}}" method="post">
                                 <input type="hidden" value="{{ user.id }}" name="id">
-                                <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur? (Cela effacera egalement tous ses articles et commentaires)')"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -153,7 +153,7 @@
                         <td style="text-align:center">
                             <form action="{{ base_path ~ 'admin/users/' ~ user.id~'/delete/'~ global.token}}" method="post">
                                 <input type="hidden" value="{{ user.id }}" name="id">
-                                <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur?')" ><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur? (Cela effacera egalement tous ses articles et commentaires)')" ><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>

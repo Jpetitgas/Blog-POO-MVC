@@ -8,6 +8,7 @@ $router->setNamespace('App\Controller');
 //front
 
 $router->get('/', 'PublicController@index');
+$router->get('/mentions', 'PublicController@mentions');
 $router->get('/403', 'PublicController@forbidden');
 $router->get('/about', 'PublicController@about');
 
@@ -20,11 +21,16 @@ $router->post('/form/sent', 'FormController@sent');
 
 //connexion
 $router->before('GET', '/login', function () {
-    if (isset($_SERVER['HTTP_REFERER'])){
-        if (strpos($_SERVER['HTTP_REFERER'],"articles")){
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        if (strpos($_SERVER['HTTP_REFERER'], "articles")) {
             $undo = $_SERVER['HTTP_REFERER'];
-        } else {$undo='/';}
-    setcookie('undo', $undo);
+        } else {
+            $undo = '/';
+        }
+        
+        if ($_COOKIE['acceptCookies'] == "true") {
+            setcookie('undo', $undo);
+        }
     }
 });
 
@@ -80,6 +86,6 @@ $router->post('/admin/comments/(\d+)/valided', 'CommentsController@valided');
 
 
 $router->set404(function () {
-    $affiche = new MessageController; 
+    $affiche = new MessageController;
     $affiche->message('Cette page n\'existe pas!!');
 });

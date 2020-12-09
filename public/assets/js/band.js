@@ -1,5 +1,5 @@
-var get = getCookie('permit');
-if (get !== '1') {
+var get = getCookie('acceptCookies');
+if (get !== "true") {
    document.getElementById('cookie').style.visibility="visible";  
 }
 var bottom=document.getElementById('valided');
@@ -9,7 +9,7 @@ bottom.onclick= setCookie;
 function setCookie()
 {
     document.getElementById('cookie').style.visibility = "hidden";
-    document.cookie="permit=1";
+    document.cookie="acceptCookies=true";
 }
 function getCookie(cname) {
     var name = cname + "=";
@@ -27,9 +27,3 @@ function getCookie(cname) {
     return "";
   }
   
-var bottom=document.getElementById('deleted');
-
-bottom.onclick= deleteCookie;
-function deleteCookie() {
-document.cookie="permit=0";
-}

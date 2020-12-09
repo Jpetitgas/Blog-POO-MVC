@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Dompdf\Dompdf;
 use Exception;
+
 /**
  * PublicController
  * gere le page d'acceuil, la page accés interdit et la page 'à propos'
@@ -18,15 +19,15 @@ class PublicController extends Controller
      */
     public static function index()
     {
-        try{
-        self::global();
-        echo self::getTwig()->render('app/index.html', [
-            'global' => self::$global,
-        ]);
-    } catch (Exception$e){
-        $affiche = new MessageController; 
-        $affiche->message($e->getMessage());
-}
+        try {
+            self::global();
+            echo self::getTwig()->render('app/index.html', [
+                'global' => self::$global,
+            ]);
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
+        }
     }
     public static function forbidden()
     {
@@ -53,9 +54,22 @@ class PublicController extends Controller
         // Output the generated PDF to Browser
         $dompdf->stream("CV_JP", array("Attachment" => 0));
     }
-    /*public static function cv()
+    /**
+     * mention
+     *
+     * @return void
+     */
+    public static function mentions()
     {
+        try {
 
-        echo self::getTwig()->render('app/cv.html');
-    }*/
+            self::global();
+            echo self::getTwig()->render('article/mentions.html', [
+                'global' => self::$global,
+            ]);
+        } catch (Exception $e) {
+            $affiche = new MessageController;
+            $affiche->message($e->getMessage());
+        }
+    }
 }
