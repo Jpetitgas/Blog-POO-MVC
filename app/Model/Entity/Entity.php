@@ -2,7 +2,7 @@
 
 namespace App\Model\Entity;
  
-class Entity {
+Abstract class Entity {
   
   protected $id;
  

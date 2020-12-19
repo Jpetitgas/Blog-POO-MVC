@@ -41,17 +41,15 @@ class PublicController extends Controller
      */
     public static function about()
     {
-        // instantiate and use the dompdf class
+       
         $dompdf = new Dompdf();
         $page = file_get_contents("./doc/cv.html");
         $dompdf->loadHtml($page);
 
-        // (Optional) Setup the paper size and orientation
         $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
+        
         $dompdf->render();
-        // Output the generated PDF to Browser
+        
         $dompdf->stream("CV_JP", array("Attachment" => 0));
     }
     /**

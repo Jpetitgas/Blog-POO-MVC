@@ -71,7 +71,7 @@
             {% for comment in comments %}
             <div class="card">
                 <div class="card-body">
-                    <p class="card-text">{{ comment.comment }}</p>
+                    <p class="card-text" style="white-space:pre-line">{{ comment.comment }}</p>
                 </div>
                 <div class="card-footer">
                     <p class="text-muted"><small>{{ comment.author }} a rédigé ce commentaire le {{ comment.date }}</small>

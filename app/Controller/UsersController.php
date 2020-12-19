@@ -146,8 +146,10 @@ class UsersController extends Controller
             $user = new UserEntity($controlled_array);
 
             $users->create($user);
-            $redir = 'location: /admin';
-            return header($redir);
+            $affiche = new MessageController;
+            $message ="Votre compte sera activé par un administrateur du site. Vous recevrez un mail de confirmation";
+            $affiche->message($message);
+
         } catch (Exception $e) {
             $affiche = new MessageController;
             $affiche->message($e->getmessage());
